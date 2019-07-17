@@ -9,7 +9,7 @@ export class Home extends Component {
   render() {
     return (
       <div style={this.style}>
-        <h3>Welcome. Please search for a book.</h3>
+        <h3 className="page-header">Welcome. Please search for a book.</h3>
         <Search />
       </div>
     );

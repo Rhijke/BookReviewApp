@@ -4,7 +4,7 @@ export class WriteReview extends Component {
   render() {
     return (
       <div>
-        <h3> WriteReviews</h3>
+        <h3 className="page-header"> Write a review</h3>
       </div>
     );
   }

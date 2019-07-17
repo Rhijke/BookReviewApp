@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Booklist from './components/Booklist';
 import WriteReview from './components/WriteReview';
 import SearchResults from './components/SearchResults';
+import BookDetails from './components/BookDetails';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/booklist" component={Booklist} />
           <Route path="/writereview" component={WriteReview} />
           <Route path="/search/:search" component={SearchResults} />
+          <Route path="/details/:search" exact component={BookDetails} />
         </Switch>
       </div>
     </Router>

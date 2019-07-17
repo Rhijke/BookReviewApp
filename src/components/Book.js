@@ -1,17 +1,20 @@
 import React from 'react';
-import { italic } from 'ansi-colors';
+import { Link } from 'react-router-dom';
 export const Book = book => {
   return (
-    <div key={book.id}>
-      <image src={book.smallImage} />
+    <Link key={book.id} to={`/details/${book.id}`}>
+      {' '}
+      <div key={book.id}>
+        <image src={book.smallImage} />
 
-      <h5>
-        {book.title}{' '}
-        <span>
-          {' '}
-          <i> by {book.author}</i>
-        </span>
-      </h5>
-    </div>
+        <h5>
+          {book.title}{' '}
+          <span>
+            {' '}
+            <i> by {book.author}</i>
+          </span>
+        </h5>
+      </div>{' '}
+    </Link>
   );
 };
