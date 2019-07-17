@@ -16,24 +16,32 @@ export const Search = () => {
     setSearch(e.target.value);
   };
 
+  // const updateResults = book => {
+  //   setResults(prevResults => [...prevResults, {
+
+  //   }])
+  // }
+
   const searchBook = async e => {
     e.preventDefault();
-
-    let results = await fetchBook(search);
-    console.log(results);
+    let searchResults = await fetchBook(search);
+    setResults(searchResults);
   };
 
   return (
-    <form onSubmit={searchBook} style={formStyle}>
-      <input
-        onInput={updateSearch}
-        className="form-control"
-        style={inputStyle}
-        placeholder="Search"
-      />
-      <button style={inputStyle} className="btn btn-dark">
-        Search
-      </button>
-    </form>
+    <div>
+      {results.length > 0 ? console.log(results) : null}
+      <form onSubmit={searchBook} style={formStyle}>
+        <input
+          onInput={updateSearch}
+          className="form-control"
+          style={inputStyle}
+          placeholder="Search"
+        />
+        <button style={inputStyle} className="btn btn-dark">
+          Search
+        </button>
+      </form>
+    </div>
   );
 };
