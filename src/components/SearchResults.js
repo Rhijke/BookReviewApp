@@ -22,7 +22,7 @@ const SearchResults = ({ match }) => {
   });
   return (
     <div>
-      <div className="page-header sticky-top">
+      <div className="page-header">
         <h3>Search results for: {match.params.search.replace('+', ' ')}</h3>
       </div>
       <div className="searchresults">

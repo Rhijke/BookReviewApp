@@ -5,7 +5,8 @@ import '../App.js';
 
 function Nav() {
   const navStyle = {
-    alignItems: 'center'
+    alignItems: 'center',
+    height: '8vh'
   };
   return (
     <nav
