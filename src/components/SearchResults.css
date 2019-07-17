@@ -1,0 +1,8 @@
+
+.searchresults {
+    justify-content: center;
+    max-width: 80vw;
+    text-align: justify;
+    word-wrap: normal;
+    margin: 10;
+}

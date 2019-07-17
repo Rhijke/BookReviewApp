@@ -1,10 +1,11 @@
 const apiKey = 'EL6SgCuKq4F8uXd4lfVcA';
 
-export const fetchBook = async search => {
+export const fetchBook = async (search, signal) => {
   let results = [];
   search = search.replace(' ', '+');
   const callAPI = await fetch(
-    `https://www.goodreads.com/search/index.xml?key=${apiKey}&q=${search}`
+    `https://www.goodreads.com/search/index.xml?key=${apiKey}&q=${search}`,
+    { signal: signal }
   );
   const response = await callAPI.text();
   const res = new window.DOMParser().parseFromString(response, 'text/xml');

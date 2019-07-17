@@ -12,18 +12,18 @@ function Nav() {
       className="navbar navbar-expand-lg navbar-dark bg-dark"
       style={navStyle}
     >
-      <Link className="navbar-brand" to="./">
+      <Link className="navbar-brand" to="/">
         Home
       </Link>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link className="nav-link" to="./booklist">
+            <Link className="nav-link" to="/booklist">
               Book List
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="./writereview">
+            <Link className="nav-link" to="/writereview">
               Write a Review
             </Link>
           </li>
