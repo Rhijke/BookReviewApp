@@ -4,7 +4,8 @@ const BookDetails = ({ match }) => {
   return (
     <div>
       {console.log(match)}
-      <h3 className="page-header">{match['params'].search}</h3>
+      {console.log(this)}
+      <h3 className="page-header">{match['params'].book}</h3>
     </div>
   );
 };

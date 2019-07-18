@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import './Book.css';
 export const Book = book => {
   return (
-    <Link key={book.title} to={`/details/${book.id}`}>
+    <Link
+      key={book.title}
+      to={{
+        pathname: `/details/${book.title}`
+      }}
+    >
       {' '}
       <div className={'book-item'} key={book.id}>
         <h5>

@@ -22,7 +22,6 @@ export const fetchBook = async search => {
       rating: work[i].children[7].textContent
     });
   }
-  console.log(results);
 
   return results;
 };
