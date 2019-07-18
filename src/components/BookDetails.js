@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './BookDetails.css';
+import './css/BookDetails.css';
 import { fetchReviews } from './api/fetchReviews';
 
 export class BookDetails extends Component {

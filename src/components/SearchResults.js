@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchBook } from './api/fetchBook';
-import './SearchResults.css';
+import './css/SearchResults.css';
 import { Book } from './Book';
 
 const SearchResults = ({ match }) => {
