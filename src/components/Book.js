@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Book.css';
 export const Book = book => {
   return (
-    <Link key={book.id} to={`/details/${book.id}`}>
+    <Link key={book.id} to={`/details/${book.title}`}>
       {' '}
-      <div key={book.id}>
-        <image src={book.smallImage} />
-
+      <div className={'book-item'} key={book.id}>
         <h5>
+          <img src={book.smallImage} alt="bookcover" />
           {book.title}{' '}
           <span>
             {' '}

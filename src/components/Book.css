@@ -1,0 +1,11 @@
+/* .book-item {
+    clear: both;
+} */
+.book-item img {
+    vertical-align: baseline;
+    padding-right: 1em;
+}
+
+/* .book-item h5 {
+    float:right;
+} */

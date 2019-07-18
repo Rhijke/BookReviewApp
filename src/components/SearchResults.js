@@ -6,20 +6,14 @@ const SearchResults = ({ match }) => {
   const [search, setSearch] = useState(`${match.params.search}`);
   const [results, setResults] = useState([]);
 
-  const searchBook = async signal => {
-    let searchResults = await fetchBook(search, signal);
+  const searchBook = async () => {
+    let searchResults = await fetchBook(search);
     setResults(searchResults);
   };
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
-    searchBook(signal);
-
-    return function cleanup() {
-      abortController.abort();
-    };
-  });
+    searchBook();
+  }, []);
   return (
     <div>
       <div className="page-header">
