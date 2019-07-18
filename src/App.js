@@ -6,6 +6,7 @@ import Booklist from './components/Booklist';
 import WriteReview from './components/WriteReview';
 import SearchResults from './components/SearchResults';
 import BookDetails from './components/BookDetails';
+import Login from './components/Login';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/writereview" component={WriteReview} />
           <Route path="/search/:search" exact component={SearchResults} />
           <Route path="/details/:book" component={BookDetails} />
+          <Route path="/login" component={Login} />
         </Switch>
       </div>
     </Router>

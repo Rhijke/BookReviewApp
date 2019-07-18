@@ -16,8 +16,8 @@ function Nav() {
       <Link className="navbar-brand" to="/">
         Home
       </Link>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
+      <div className="navbar-collapse w-100 order-1 order-md-0" id="navbarNav">
+        <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <Link className="nav-link" to="/booklist">
               Book List
@@ -26,6 +26,15 @@ function Nav() {
           <li className="nav-item">
             <Link className="nav-link" to="/writereview">
               Write a Review
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className="navbar-collapse collapse w-100 order-3">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">
+              Login
             </Link>
           </li>
         </ul>
