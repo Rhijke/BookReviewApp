@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Book.css';
 export const Book = book => {
@@ -6,7 +6,8 @@ export const Book = book => {
     <Link
       key={book.title}
       to={{
-        pathname: `/details/${book.title}`
+        pathname: `/details/${book.title}`,
+        state: book
       }}
     >
       {' '}

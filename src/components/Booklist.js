@@ -4,7 +4,7 @@ export class Booklist extends Component {
   render() {
     return (
       <div>
-        <h3 className="page-header">BookLists</h3>
+        <h3 className="page-header">Book List</h3>
       </div>
     );
   }
