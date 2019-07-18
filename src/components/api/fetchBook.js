@@ -8,17 +8,21 @@ export const fetchBook = async search => {
   );
   const response = await callAPI.text();
   const res = new window.DOMParser().parseFromString(response, 'text/xml');
-  const data = res
-    .getElementsByTagName('GoodreadsResponse')[0]
-    .children[1].getElementsByTagName('best_book');
+  const work = res.getElementsByTagName('work');
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < work.length; i++) {
+    let data = work[i].children[8];
     results.push({
-      id: data[i].children[0].textContent,
-      title: data[i].children[1].textContent,
-      author: data[i].children[2].childNodes[3].textContent,
-      smallImage: data[i].children[4].textContent
+      id: data.children[0].textContent,
+      title: data.children[1].textContent,
+      author: data.children[2].childNodes[3].textContent,
+      image: data.children[3].textContent,
+      smallImage: data.children[4].textContent,
+      publicationYear: work[i].children[4].textContent,
+      rating: work[i].children[7].textContent
     });
   }
+  console.log(results);
+
   return results;
 };
