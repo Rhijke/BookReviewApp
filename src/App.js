@@ -19,7 +19,7 @@ function App() {
           <Route path="/writereview" component={WriteReview} />
           <Route path="/search/:search" exact component={SearchResults} />
           <Route path="/details/:book" component={BookDetails} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" exact component={Login} />
         </Switch>
       </div>
     </Router>
