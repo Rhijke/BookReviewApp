@@ -50,6 +50,31 @@ export class Login extends Component {
     console.log('successful login');
   };
 
+  createAccount = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(cred => {
+        return firebase
+          .firestore()
+          .collection('users')
+          .doc(cred.user.uid)
+          .set({
+            savedBooks: []
+          });
+      })
+      .then(() => this.onLoginSuccess.bind(this))
+      .catch(error => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          this.onLoginFailure.bind(this)('Weak password!');
+        } else {
+          this.onLoginFailure.bind(this)(errorMessage);
+        }
+      });
+  };
+
   render() {
     if (this.state.loggedIn) return <Redirect to="/" />;
     return (
@@ -78,6 +103,14 @@ export class Login extends Component {
           </div>
           <button className="btn btn-dark">Submit</button>
         </form>
+        <button className="btn btn-dark" onClick={this.createAccount}>
+          Create Account
+        </button>
+        {firebase.auth().currentUser ? (
+          <button className="btn btn-dark" onClick={this.handleLogout}>
+            Logout
+          </button>
+        ) : null}
       </div>
     );
   }

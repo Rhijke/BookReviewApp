@@ -1,4 +1,4 @@
-import firebase from './components/api/firebase';
+import firebase from './api/firebase';
 const createAccount = () => {
   const { email, password } = this.state;
   firebase

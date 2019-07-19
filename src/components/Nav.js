@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import firebase from './api/firebase';
 import '../App.css';
 import '../App.js';
-
 function Nav() {
   const navStyle = {
     alignItems: 'center',
@@ -13,6 +13,7 @@ function Nav() {
       className="navbar navbar-expand-lg navbar-dark bg-dark"
       style={navStyle}
     >
+      {console.log('claed')}
       <Link className="navbar-brand" to="/">
         Home
       </Link>
@@ -37,6 +38,9 @@ function Nav() {
               Login
             </Link>
           </li>
+          {firebase.auth().currentUser ? (
+            <li className="nav-item">hello world</li>
+          ) : null}
         </ul>
       </div>
     </nav>

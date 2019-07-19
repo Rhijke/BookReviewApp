@@ -7,7 +7,13 @@ import WriteReview from './components/WriteReview';
 import SearchResults from './components/SearchResults';
 import BookDetails from './components/BookDetails';
 import Login from './components/Login';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
+
 function App() {
   return (
     <Router>
