@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/BookDetails.css';
 import { fetchReviews } from './api/fetchReviews';
+import { saveBook } from './saveBook';
 
 export class BookDetails extends Component {
   state = {
@@ -22,6 +23,7 @@ export class BookDetails extends Component {
         <h3 className="page-header">
           {this.state.book['title']} by {this.state.book['author']}
         </h3>
+
         <img
           src={`${this.state.book['image']}`}
           alt={`${this.state.book['title']} book cover`}
@@ -32,6 +34,12 @@ export class BookDetails extends Component {
         <h4 className="detail-item">
           Average Rating: {`${this.state.book['rating']}`}
         </h4>
+        <button
+          className="btn btn-dark"
+          onClick={saveBook.bind(this, this.state.book['title'])}
+        >
+          Save Book
+        </button>
         {this.state.description ? (
           <p dangerouslySetInnerHTML={{ __html: this.state.description }} />
         ) : null}
