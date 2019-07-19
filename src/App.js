@@ -7,6 +7,7 @@ import WriteReview from './components/WriteReview';
 import SearchResults from './components/SearchResults';
 import BookDetails from './components/BookDetails';
 import Login from './components/Login';
+import firebase from './components/api/firebase';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +18,7 @@ import {
 function App() {
   return (
     <Router>
-      <Nav />
+      <Nav loggedIn={firebase.auth().currentUser} />
       <div className="App">
         <Switch>
           <Route path="/" exact component={Home} />

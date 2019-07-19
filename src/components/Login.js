@@ -9,6 +9,13 @@ export class Login extends Component {
     error: '',
     loggedIn: false
   };
+  componentWillMount() {
+    if (!firebase.auth().currentUser) {
+      this.setState({
+        loggedIn: false
+      });
+    }
+  }
 
   handleLogin = e => {
     e.preventDefault();
