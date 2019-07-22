@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './css/BookDetails.css';
-import { fetchReviews } from './api/fetchReviews';
-import { saveBook, checkSavedBook } from './saveBook';
+import { saveBook, checkSavedBook } from './api/saveBook';
 
 export class BookDetails extends Component {
   state = {
@@ -9,7 +8,7 @@ export class BookDetails extends Component {
   };
 
   handleSavedBook = async () => {
-    let found = await checkSavedBook(this.state.book['title']);
+    let found = await checkSavedBook(this.state.book['id']);
     this.setState({
       saved: found
     });
@@ -28,9 +27,10 @@ export class BookDetails extends Component {
   componentWillMount() {
     console.log('will mount');
     console.log(this.state.book['title']);
+    console.log(this.state.book);
     console.log(this.handleSavedBook());
     this.setState({
-      saved: checkSavedBook.call(this, this.state.book['title'])
+      saved: checkSavedBook.call(this, this.state.book['id'])
     });
   }
   render() {
@@ -54,7 +54,7 @@ export class BookDetails extends Component {
         <button
           className="btn btn-dark"
           onClick={async () => {
-            let found = await saveBook.call(this, this.state.book['title']);
+            let found = await saveBook.call(this, this.state.book['id']);
             this.setState({
               saved: found
             });

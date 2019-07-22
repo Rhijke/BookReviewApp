@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from './api/firebase';
+import firebase from './firebase';
 
 export const saveBook = async book => {
   if (firebase.auth().currentUser) {
