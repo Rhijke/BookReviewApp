@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
 import './css/BookDetails.css';
 import { fetchReviews } from './api/fetchReviews';
-import { saveBook } from './saveBook';
+import { saveBook, checkSavedBook } from './saveBook';
 
 export class BookDetails extends Component {
   state = {
     book: this.props.location.state
   };
-  getReviews = async () => {
-    const reviews = await fetchReviews(this.state.book['id']);
+
+  handleSavedBook = async () => {
+    let found = await checkSavedBook(this.state.book['title']);
     this.setState({
-      description: reviews.summary
+      saved: found
     });
+    console.log(found);
   };
-  componentDidMount() {
-    this.getReviews();
+
+  // componentDidMount() {
+  //   this.setState({ loading: true });
+  //   this.handleSavedBook().then(() => {
+  //     this.setState({
+  //       loading: false
+  //     });
+  //   });
+  // }
+
+  componentWillMount() {
+    console.log('will mount');
+    console.log(this.state.book['title']);
+    console.log(this.handleSavedBook());
+    this.setState({
+      saved: checkSavedBook.call(this, this.state.book['title'])
+    });
   }
   render() {
+    if (this.state.loading) return <h2>Searching for book details.</h2>;
     return (
       <div className="detail-container">
-        {console.log(this.state.book)}
         <h3 className="page-header">
           {this.state.book['title']} by {this.state.book['author']}
         </h3>
@@ -36,9 +53,14 @@ export class BookDetails extends Component {
         </h4>
         <button
           className="btn btn-dark"
-          onClick={saveBook.bind(this, this.state.book['title'])}
+          onClick={async () => {
+            let found = await saveBook.call(this, this.state.book['title']);
+            this.setState({
+              saved: found
+            });
+          }}
         >
-          Save Book
+          {this.state.saved ? 'Remove book' : 'Save Book'}
         </button>
         {this.state.description ? (
           <p dangerouslySetInnerHTML={{ __html: this.state.description }} />

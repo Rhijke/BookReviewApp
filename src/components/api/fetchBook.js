@@ -4,7 +4,7 @@ export const fetchBook = async search => {
   let results = [];
   search = search.replace(' ', '+');
   const callAPI = await fetch(
-    `https://www.goodreads.com/search/index.xml?key=${apiKey}&q=${search}`
+    `http://cors-anywhere.herokuapp.com/https://www.goodreads.com/search/index.xml?key=${apiKey}&q=${search}`
   );
   const response = await callAPI.text();
   const res = new window.DOMParser().parseFromString(response, 'text/xml');
