@@ -16,9 +16,21 @@ function Nav(props) {
       <Link className="navbar-brand" to="/">
         Home
       </Link>
-      <div className="navbar-collapse w-100 order-1 order-md-0" id="navbarNav">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon" />
+      </button>
+
+      <div className="collapse navbar-collapse w-100 order-0" id="navbarNav">
+        <ul className="navbar-nav ">
+          <li className="nav-item ">
             <Link className="nav-link" to="/booklist">
               Book List
             </Link>

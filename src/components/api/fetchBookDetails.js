@@ -8,7 +8,6 @@ export const fetchBookDetails = async search => {
   const res = new window.DOMParser().parseFromString(response, 'text/xml');
   const data = res.getElementsByTagName('GoodreadsResponse')[0].children[1]
     .children;
-
   result['id'] = data[0].textContent;
   result['title'] = data[1].textContent;
   result['smallImage'] = data[9].textContent;
@@ -16,7 +15,20 @@ export const fetchBookDetails = async search => {
   result['publicationYear'] = data[10].textContent;
   result['rating'] = data[18].textContent;
   result['author'] = data[26].children[0].children[1].textContent;
+  result['description'] = data[16].textContent;
   console.log(result);
 
   return result;
+};
+
+export const fetchBookDescription = async search => {
+  const callAPI = await fetch(
+    `https://www.goodreads.com/book/show/${search}.xml?key=EL6SgCuKq4F8uXd4lfVcA`
+  );
+  const response = await callAPI.text();
+  const res = new window.DOMParser().parseFromString(response, 'text/xml');
+  const data = res.getElementsByTagName('GoodreadsResponse')[0].children[1]
+    .children;
+
+  return data[16].textContent;
 };

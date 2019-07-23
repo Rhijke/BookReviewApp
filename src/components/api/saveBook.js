@@ -35,8 +35,6 @@ export const saveBook = async book => {
 };
 
 export const checkSavedBook = async book => {
-  console.log('check book');
-  console.log(firebase.auth().currentUser);
   if (firebase.auth().currentUser) {
     let userID = firebase.auth().currentUser.uid;
     let doc = await firebase

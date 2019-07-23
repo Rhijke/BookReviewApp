@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/BookDetails.css';
 import { saveBook, checkSavedBook } from './api/saveBook';
+import { fetchBookDescription } from './api/fetchBookDetails';
 
 export class BookDetails extends Component {
   state = {
@@ -9,25 +10,20 @@ export class BookDetails extends Component {
 
   handleSavedBook = async () => {
     let found = await checkSavedBook(this.state.book['id']);
-    this.setState({
-      saved: found
-    });
+    console.log(this.state.book);
+    let desc = await fetchBookDescription(this.state.book['id']);
+    console.log(desc);
+    this.setState(prevState => ({
+      saved: found,
+      book: {
+        ...prevState.book,
+        description: desc
+      }
+    }));
     console.log(found);
   };
 
-  // componentDidMount() {
-  //   this.setState({ loading: true });
-  //   this.handleSavedBook().then(() => {
-  //     this.setState({
-  //       loading: false
-  //     });
-  //   });
-  // }
-
   componentWillMount() {
-    console.log('will mount');
-    console.log(this.state.book['title']);
-    console.log(this.state.book);
     console.log(this.handleSavedBook());
     this.setState({
       saved: checkSavedBook.call(this, this.state.book['id'])
@@ -62,8 +58,11 @@ export class BookDetails extends Component {
         >
           {this.state.saved ? 'Remove book' : 'Save Book'}
         </button>
-        {this.state.description ? (
-          <p dangerouslySetInnerHTML={{ __html: this.state.description }} />
+
+        {this.state.book.description ? (
+          <p
+            dangerouslySetInnerHTML={{ __html: this.state.book.description }}
+          />
         ) : null}
       </div>
     );
