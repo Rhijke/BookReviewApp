@@ -17,7 +17,7 @@ function Nav(props) {
         Home
       </Link>
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
@@ -25,7 +25,7 @@ function Nav(props) {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon" />
+        <span className="navbar-toggler-icon" />
       </button>
 
       <div className="collapse navbar-collapse w-100 order-0" id="navbarNav">
