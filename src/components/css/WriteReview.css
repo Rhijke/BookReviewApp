@@ -1,0 +1,10 @@
+.form-review {
+    width: 50vw;
+}
+select {
+    font-family: 'FontAwesome';
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 5px;
+}
