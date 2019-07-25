@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Search } from './SearchBar';
 import firebase from './api/firebase';
 import Login from './Login';
+import { Redirect } from 'react-router-dom';
 
 export class Home extends Component {
   style = {
@@ -19,7 +20,7 @@ export class Home extends Component {
       );
     }
 
-    return <Login />;
+    return <Redirect to="/login" />;
   }
 }
 

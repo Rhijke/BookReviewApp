@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 import firebase from './api/firebase';
 import '../App.css';
 import '../App.js';
+
+function signOut() {
+  firebase.auth().signOut();
+  alert('You have been signed out.');
+}
 function Nav(props) {
   const navStyle = {
     alignItems: 'center',
@@ -53,9 +58,7 @@ function Nav(props) {
             <Link
               className="nav-link"
               onClick={() => {
-                firebase.auth().currentUser
-                  ? firebase.auth().signOut()
-                  : alert('Login first.');
+                firebase.auth().currentUser ? signOut() : alert('Login first.');
               }}
               to={firebase.auth().currentUser ? '/' : `/login`}
             >

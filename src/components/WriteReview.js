@@ -8,7 +8,7 @@ export class WriteReview extends Component {
         <form method="POST">
           <div className="form-group form-rating">
             <label>Rating</label>
-            <select class="form-control">
+            <select className="form-control">
               <option>&#xf005;</option>
               <option>&#xf005; &#xf005;</option>
               <option>&#xf005; &#xf005; &#xf005;</option>
@@ -26,7 +26,7 @@ export class WriteReview extends Component {
               placeholder="Write your review here."
             />
           </div>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>
