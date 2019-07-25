@@ -1,8 +1,10 @@
-const apiKey = 'EL6SgCuKq4F8uXd4lfVcA';
+import { goodreadsConfig } from './config';
 export const fetchBookDetails = async search => {
   let result = {};
   const callAPI = await fetch(
-    `https://www.goodreads.com/book/show/${search}.xml?key=EL6SgCuKq4F8uXd4lfVcA`
+    `https://www.goodreads.com/book/show/${search}.xml?key=${
+      goodreadsConfig.apiKey
+    }`
   );
   const response = await callAPI.text();
   const res = new window.DOMParser().parseFromString(response, 'text/xml');
@@ -23,7 +25,9 @@ export const fetchBookDetails = async search => {
 
 export const fetchBookDescription = async search => {
   const callAPI = await fetch(
-    `https://www.goodreads.com/book/show/${search}.xml?key=EL6SgCuKq4F8uXd4lfVcA`
+    `https://www.goodreads.com/book/show/${search}.xml?key=${
+      goodreadsConfig.apiKey
+    }`
   );
   const response = await callAPI.text();
   const res = new window.DOMParser().parseFromString(response, 'text/xml');
