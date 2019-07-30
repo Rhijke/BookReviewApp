@@ -1,0 +1,26 @@
+{
+  "name": "book-review-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "concurrently \"npm run client\" \"node ./bin/www\"",
+    "client": "node start-client.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.5.2",
+    "concurrently": "^4.1.1",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "ejs": ">= 0.0.0",
+    "errorhandler": "^1.1.1",
+    "express": "^4.17.1",
+    "express-session": "^1.7.2",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "method-override": "^2.1.2",
+    "morgan": "~1.9.1",
+    "passport": ">= 0.0.0",
+    "passport-goodreads": ">= 0.0.0"
+  }
+}
