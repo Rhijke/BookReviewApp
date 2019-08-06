@@ -18,9 +18,11 @@
     "express-session": "^1.7.2",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "jsonfile": "^5.0.0",
     "method-override": "^2.1.2",
     "morgan": "~1.9.1",
     "passport": ">= 0.0.0",
-    "passport-goodreads": ">= 0.0.0"
+    "passport-goodreads": ">= 0.0.0",
+    "supervisor": "^0.12.0"
   }
 }

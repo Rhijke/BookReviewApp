@@ -10,17 +10,12 @@ export class Home extends Component {
     alignItems: 'center'
   };
   render() {
-    if (firebase.auth().currentUser) {
-      return (
-        <div style={this.style}>
-          {console.log(firebase.auth().currentUser.uid)}
-          <h3 className="page-header">Welcome. Please search for a book.</h3>
-          <Search />
-        </div>
-      );
-    }
-
-    return <Redirect to="/login" />;
+    return (
+      <div style={this.style}>
+        <h3 className="page-header">Welcome. Please search for a book.</h3>
+        <Search />
+      </div>
+    );
   }
 }
 
