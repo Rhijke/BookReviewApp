@@ -16,6 +16,14 @@ export class Login extends Component {
       });
     }
   }
+  getUserID = async () => {
+    let user = await fetch(`auth/goodreads`, {
+      accept: 'application/json'
+    });
+    let userJSON = user.parseJSON();
+
+    console.log(userJSON);
+  };
 
   handleLogin = e => {
     e.preventDefault();
@@ -75,37 +83,37 @@ export class Login extends Component {
 
   render() {
     if (this.state.loggedIn) return <Redirect to="/" />;
-    return (
-      <div>
-        <h3 className="page-header">Please login.</h3>
-        <form onSubmit={this.handleLogin}>
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              onChange={e => this.setState({ email: e.target.value })}
-              className="form-control"
-              placeholder="Email"
-              name="email"
-              type="text"
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              onChange={e => this.setState({ password: e.target.value })}
-              className="form-control"
-              placeholder="Password"
-              name="password"
-              type="password"
-            />
-          </div>
-          <button className="btn btn-dark">Submit</button>
-        </form>
-        <button className="btn btn-dark" onClick={this.createAccount}>
-          Create Account
-        </button>
-      </div>
-    );
+    // return (
+    // <div>
+    //   <h3 className="page-header">Please login.</h3>
+    //   <form onSubmit={this.handleLogin}>
+    //     <div className="form-group">
+    //       <label>Email</label>
+    //       <input
+    //         onChange={e => this.setState({ email: e.target.value })}
+    //         className="form-control"
+    //         placeholder="Email"
+    //         name="email"
+    //         type="text"
+    //       />
+    //     </div>
+    //     <div className="form-group">
+    //       <label>Password</label>
+    //       <input
+    //         onChange={e => this.setState({ password: e.target.value })}
+    //         className="form-control"
+    //         placeholder="Password"
+    //         name="password"
+    //         type="password"
+    //       />
+    //     </div>
+    //     <button className="btn btn-dark">Submit</button>
+    //   </form>
+    //   <button className="btn btn-dark" onClick={this.createAccount}>
+    //     Create Account
+    //   </button>
+    // </div>
+    // );
   }
 }
 

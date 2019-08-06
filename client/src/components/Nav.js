@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from './api/firebase';
 import '../App.css';
 import '../App.js';
-
-function signOut() {
-  firebase.auth().signOut();
-  alert('You have been signed out.');
-}
+import Login2 from './Login2';
+import io from 'socket.io-client';
+const socket = io('http://localhost:3002');
+console.log(socket);
 function Nav(props) {
   const navStyle = {
     alignItems: 'center',
@@ -50,15 +49,13 @@ function Nav(props) {
       <div className="navbar-collapse collapse w-100 order-3">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/login">
-              Login
-            </Link>
+            <Login2 provider={'goodreads'} key={'goodreads'} socket={socket} />
           </li>
           <li className="nav-item">
             <Link
               className="nav-link"
               onClick={() => {
-                firebase.auth().currentUser ? signOut() : alert('Login first.');
+                console.log('clicked logout');
               }}
               to={firebase.auth().currentUser ? '/' : `/login`}
             >

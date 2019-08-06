@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run client\" \"node ./bin/www\"",
+    "start": "concurrently \"npm run client\" \"nodemon ./bin/www\"",
     "client": "node start-client.js"
   },
   "dependencies": {
@@ -17,12 +17,14 @@
     "express": "^4.17.1",
     "express-session": "^1.7.2",
     "http-errors": "~1.6.3",
+    "https": "^1.0.0",
     "jade": "~1.11.0",
     "jsonfile": "^5.0.0",
     "method-override": "^2.1.2",
     "morgan": "~1.9.1",
+    "nodemon": "^1.19.1",
     "passport": ">= 0.0.0",
     "passport-goodreads": ">= 0.0.0",
-    "supervisor": "^0.12.0"
+    "socket.io": "^2.2.0"
   }
 }
