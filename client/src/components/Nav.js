@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import firebase from './api/firebase';
 import '../App.css';
 import '../App.js';
 import Login2 from './Login2';
@@ -57,7 +56,7 @@ function Nav(props) {
               onClick={() => {
                 console.log('clicked logout');
               }}
-              to={firebase.auth().currentUser ? '/' : `/login`}
+              to="/logout"
             >
               Logout
             </Link>

@@ -32,7 +32,7 @@ export default class Login2 extends Component {
   }
   openPopup() {
     const { provider, socket } = this.props;
-    const url = `http://localhost:3002/goodreads?socketId=${socket.ids}`;
+    const url = `http://localhost:3002/${provider}?socketId=${socket.ids}`;
 
     return window.open(url);
   }
@@ -54,25 +54,7 @@ export default class Login2 extends Component {
     return (
       <div>
         {name ? (
-          <button
-            style={linkButton}
-            className="nav-link# dependencies
-          /client/node_modules/
-          /backend/node_modules/
-          /backend/config/
-          
-          
-          # misc
-          .DS_Store
-          .env.local
-          .env.development.local
-          .env.test.local
-          .env.production.local
-          
-          npm-debug.log*
-          yarn-debug.log*
-          yarn-error.log*"
-          >
+          <button style={linkButton} className="nav-link">
             {name}
           </button>
         ) : (

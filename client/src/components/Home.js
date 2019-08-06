@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Search } from './SearchBar';
-import firebase from './api/firebase';
 import Login from './Login';
 import { Redirect } from 'react-router-dom';
 

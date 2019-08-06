@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './css/Login.css';
-import firebase from './api/firebase';
 import { Redirect } from 'react-router';
 export class Login extends Component {
   state = {
@@ -9,13 +8,7 @@ export class Login extends Component {
     error: '',
     loggedIn: false
   };
-  componentWillMount() {
-    if (!firebase.auth().currentUser) {
-      this.setState({
-        loggedIn: false
-      });
-    }
-  }
+  componentWillMount() {}
   getUserID = async () => {
     let user = await fetch(`auth/goodreads`, {
       accept: 'application/json'
@@ -27,25 +20,25 @@ export class Login extends Component {
 
   handleLogin = e => {
     e.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(this.onLoginSuccess.bind(this))
-      .catch(error => {
-        let errorMessage = error.message;
-        alert(errorMessage);
-      });
+    // firebase
+    //   .auth()
+    //   .signInWithEmailAndPassword(this.state.email, this.state.password)
+    //   .then(this.onLoginSuccess.bind(this))
+    //   .catch(error => {
+    //     let errorMessage = error.message;
+    //     alert(errorMessage);
+    //   });
   };
 
   handleLogout = e => {
     e.preventDefault();
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        console.log('logged out');
-        this.resetState(false);
-      });
+    // firebase
+    //   .auth()
+    //   .signOut()
+    //   .then(() => {
+    //     console.log('logged out');
+    //     this.resetState(false);
+    //   });
   };
 
   resetState = loginState => {
@@ -62,23 +55,23 @@ export class Login extends Component {
   };
 
   createAccount = () => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(cred => {
-        return firebase
-          .firestore()
-          .collection('users')
-          .doc(cred.user.uid)
-          .set({
-            savedBooks: []
-          });
-      })
-      .then(() => this.onLoginSuccess.bind(this))
-      .catch(error => {
-        let errorMessage = error.message;
-        alert(`${errorMessage}`);
-      });
+    // firebase
+    //   .auth()
+    //   .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    //   .then(cred => {
+    //     return firebase
+    //       .firestore()
+    //       .collection('users')
+    //       .doc(cred.user.uid)
+    //       .set({
+    //         savedBooks: []
+    //       });
+    //   })
+    //   .then(() => this.onLoginSuccess.bind(this))
+    //   .catch(error => {
+    //     let errorMessage = error.message;
+    //     alert(`${errorMessage}`);
+    //   });
   };
 
   render() {

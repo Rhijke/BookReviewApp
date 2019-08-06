@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Book } from './Book';
 import { fetchBookList } from './api/fetchBookList';
-import firebase from './api/firebase';
 
 const BookList = ({ match }) => {
   const [results, setResults] = useState([]);
@@ -15,11 +14,11 @@ const BookList = ({ match }) => {
     searchBook();
   }, []);
 
-  if (firebase.auth().currentUser) {
+  if (false) {
     return (
       <div>
         <div className="page-header">
-          <h3>Book list for {firebase.auth().currentUser.email}</h3>
+          <h3>Book list for </h3>
         </div>
         <div className="searchresults">
           {results.length > 0 ? results.map(book => Book(book)) : null}

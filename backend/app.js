@@ -7,6 +7,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const authRouter = require('./routes/auth.router');
+const logoutRouter = require('./routes/logout.router');
 const passportInit = require('./routes/init.passport');
 const {
   PORT = 3002,
@@ -61,7 +62,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // Direct all requests to the auth router
 app.use('/', authRouter);
-
+app.get('/logout', function(req, res) {
+  res.send('Logout request');
+});
 // Set up port
 server.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
