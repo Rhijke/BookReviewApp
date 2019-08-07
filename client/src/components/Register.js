@@ -19,21 +19,26 @@ export class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    let response = await axios.post('http://localhost:3002/users/register', {
-      user
-    });
-    let errors = response.data;
-    errors.forEach(err => {
-      this.setState(prevState => ({
-        errors: [...prevState.errors, err.msg]
-      }));
-    });
+    try {
+      let response = await axios.post('http://localhost:3002/users/register', {
+        user
+      });
+      console.log(response);
+    } catch (err) {
+      console.log(Object.keys(err));
 
-    this.state.errors.forEach(err => console.log(err));
+      let formErrors = err['response']['data']['error'];
+
+      formErrors.forEach(err => {
+        this.setState(prevState => ({
+          errors: [...prevState.errors, err.msg]
+        }));
+      });
+
+      this.state.errors.forEach(err => console.log(err));
+    }
   };
   render() {
-    let errors = this.state.errors.length > 0;
-    console.log(errors);
     return (
       <div className="mt-5 mr-auto col-md-4 offset-md-4">
         <div className="card card-body">
@@ -41,9 +46,9 @@ export class Register extends Component {
             <i className="fas fa-user-plus" /> Register
           </h2>
           <div>
-            {this.state.errors.length > 0 ? (
-              <Error msg={this.state.errors[0]} />
-            ) : null}
+            {this.state.errors.length > 0
+              ? this.state.errors.map(err => <Error key={err.msg} msg={err} />)
+              : null}
           </div>
 
           <form onSubmit={this.handleSubmit}>

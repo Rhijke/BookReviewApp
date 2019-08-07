@@ -35,10 +35,8 @@ router.post('/register', redirectHome, function(req, res) {
   }
 
   if (error.length > 0) {
-    console.log(error);
-    res.send(error);
+    res.status(400).json({ error: error });
   } else {
-    console.log('Pass');
     // Validation passed
     User.findOne({ email: email }).then(user => {
       if (user) {
@@ -61,8 +59,8 @@ router.post('/register', redirectHome, function(req, res) {
             newUser
               .save()
               .then(() => {
+                res.status(200);
                 res.send({
-                  success: true,
                   msg: 'You are now registered'
                 });
               })
@@ -72,9 +70,6 @@ router.post('/register', redirectHome, function(req, res) {
       }
     });
   }
-
-  // Check length of password
-  console.log(`register post `);
 });
 
 // handle Login POST request
