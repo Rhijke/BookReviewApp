@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Search } from './SearchBar';
-import Login from './Login';
 
 export class Home extends Component {
   style = {
@@ -10,9 +9,10 @@ export class Home extends Component {
   render() {
     return (
       <div style={this.style}>
-        <h3 className="page-header">Welcome. Please search for a book.</h3>
+        <h2 className="page-header" style={{ marginBottom: 0 }}>
+          Welcome. Please search for a book.
+        </h2>
         <Search />
-        <Login />
       </div>
     );
   }

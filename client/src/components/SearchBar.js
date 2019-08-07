@@ -26,8 +26,13 @@ export const Search = () => {
           style={inputStyle}
           placeholder="Search"
         />
+
         <Link to={`/search/${search.replace(' ', '+')}`}>
-          <button style={inputStyle} className="btn btn-dark">
+          <button
+            style={inputStyle}
+            className="btn btn-dark"
+            disabled={search !== '' ? false : true}
+          >
             Search
           </button>
         </Link>

@@ -49,11 +49,15 @@ function Nav(props) {
       <div className="navbar-collapse collapse w-100 order-3">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <LoginLink
+            {/* <LoginLink
               provider={'goodreads'}
               key={'goodreads'}
               socket={socket}
-            />
+            /> */}
+            <Link to="/login" className="nav-link">
+              {' '}
+              Login{' '}
+            </Link>
           </li>
           <li className="nav-item">
             <form method="post" action="http://localhost:3002/logout">

@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
-export class Login extends Component {
+export class Register extends Component {
   state = {
+    name: '',
     email: '',
     password: '',
-    error: '',
-    user: {},
-    loggedIn: false
+    error: ''
   };
   render() {
     if (this.state.loggedIn) return <Redirect to="/" />;
@@ -57,4 +56,4 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+export default Register;

@@ -8,6 +8,7 @@ import SearchResults from './components/SearchResults';
 import Login from './components/Login';
 import BookDetails from './components/BookDetails';
 import Logout from './components/Logout';
+import Register from './components/Register';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/search/:search" exact component={SearchResults} />
           <Route path="/details/:book" component={BookDetails} />
           <Route path="/login" exact component={Login} />
+          <Route path="/createaccount" exact component={Register} />
           <Route path="/logout" exact component={Logout} />
         </Switch>
       </div>
