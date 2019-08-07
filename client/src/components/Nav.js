@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { linkButton, LoginLink } from './OAuth';
 import '../App.css';
 import '../App.js';
-import Login2 from './Login2';
 import io from 'socket.io-client';
+
 const socket = io('http://localhost:3002');
-console.log(socket);
+
 function Nav(props) {
   const navStyle = {
     alignItems: 'center',
@@ -48,18 +49,18 @@ function Nav(props) {
       <div className="navbar-collapse collapse w-100 order-3">
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Login2 provider={'goodreads'} key={'goodreads'} socket={socket} />
+            <LoginLink
+              provider={'goodreads'}
+              key={'goodreads'}
+              socket={socket}
+            />
           </li>
           <li className="nav-item">
-            <Link
-              className="nav-link"
-              onClick={() => {
-                console.log('clicked logout');
-              }}
-              to="/logout"
-            >
-              Logout
-            </Link>
+            <form method="post" action="http://localhost:3002/logout">
+              <button style={linkButton} className="nav-link">
+                Logout
+              </button>
+            </form>
           </li>
         </ul>
       </div>

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
-const linkButton = {
+export const linkButton = {
   background: 'none',
   border: 'none',
   cursor: 'pointer'
 };
 
-export default class Login2 extends Component {
+export class LoginLink extends Component {
   state = {
     user: {},
     disabled: ''
@@ -15,7 +14,7 @@ export default class Login2 extends Component {
 
   componentDidMount() {
     const { socket, provider } = this.props;
-    socket.on('goodreads', user => {
+    socket.on(provider, user => {
       this.popup.close();
       this.setState({ user });
     });
@@ -70,7 +69,3 @@ export default class Login2 extends Component {
     );
   }
 }
-
-Login2.propTypes = {
-  socket: PropTypes.object.isRequired
-};

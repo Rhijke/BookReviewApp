@@ -7,6 +7,8 @@ exports.goodreads = (req, res, next) => {
     name: req.user.displayName
   };
   console.log(`Name: ${user.name}`);
+  req.session.userId = user.id;
+
   socket.emit('goodreads', user);
   // io.emit('goodreads', user);
   res.end();
