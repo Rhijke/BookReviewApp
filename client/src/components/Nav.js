@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { linkButton, LoginLink } from './OAuth';
+import SearchBarNav from './SearchBarNav';
 import '../App.css';
 import '../App.js';
 import io from 'socket.io-client';
+import { Search } from './SearchBar';
 
 const socket = io('http://localhost:3002');
 
@@ -50,17 +52,8 @@ function Nav(props) {
 
         <div className="order-3">
           <ul className="navbar-nav ml-auto">
-            <li>
-              <form class="form-inline">
-                <input
-                  class="form-control mr-sm-2"
-                  type="text"
-                  placeholder="Search"
-                />
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-                  Search
-                </button>
-              </form>
+            <li className="nav-item">
+              <SearchBarNav />
             </li>
             <li className="nav-item">
               <Link to="/login" className="nav-link">

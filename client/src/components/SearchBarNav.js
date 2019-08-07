@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const formStyle = {
-  padding: 20
-};
-const inputStyle = {
-  margin: 10
-};
-
-export const Search = () => {
+const SearchBarNav = () => {
   const [search, setSearch] = useState('');
+
+  // const [isLoading, setIsLoading] = useState(false);
 
   const updateSearch = e => {
     setSearch(e.target.value);
@@ -17,18 +12,17 @@ export const Search = () => {
 
   return (
     <div>
-      <form style={formStyle}>
+      <form class="form-inline">
         <input
           onInput={updateSearch}
-          className="form-control"
-          style={inputStyle}
+          className="form-control mr-sm-2"
+          type="text"
           placeholder="Search"
         />
-
         <Link to={`/search/${search.replace(' ', '+')}`}>
           <button
-            style={inputStyle}
-            className="btn btn-dark"
+            className="btn btn-secondary my-2 my-sm-0"
+            style={{ marginRight: 5 }}
             disabled={search !== '' ? false : true}
           >
             Search
@@ -38,3 +32,4 @@ export const Search = () => {
     </div>
   );
 };
+export default SearchBarNav;
