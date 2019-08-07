@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 export class Login extends Component {
@@ -18,7 +17,7 @@ export class Login extends Component {
           <h2 class="text-center mb-3">
             <i class="fas fa-sign-in" /> Login
           </h2>
-          <form method="post" action="http://localhost:3002/login">
+          <form method="post" action="http://localhost:3002/users/login">
             <div className="form-group">
               <label>Email</label>
               <input
@@ -40,7 +39,7 @@ export class Login extends Component {
               />
             </div>
 
-            <button className="btn btn-dark">Create Account</button>
+            <button className="btn btn-dark">Login</button>
           </form>
           <p class="mt-4">
             No Account? <a href="/register">Register</a>

@@ -17,7 +17,7 @@ export class Register extends Component {
           <h2 className="text-center mb-3">
             <i className="fas fa-user-plus" /> Register
           </h2>
-          <form method="post" action="http://localhost:3002/login">
+          <form method="post" action="http://localhost:3002/users/register">
             <div className="form-group">
               <label>Name</label>
               <input
