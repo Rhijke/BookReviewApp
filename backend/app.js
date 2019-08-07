@@ -10,7 +10,9 @@ const session = require('express-session');
 const authRouter = require('./routes/auth.router');
 const passportInit = require('./routes/init.passport');
 const flash = require('connect-flash');
-
+let initPassport = require('./config/passport');
+initPassport(passport);
+// Set environment variables if there are none
 const {
   PORT = 3002,
   NODE_ENV = 'development',
@@ -18,6 +20,7 @@ const {
   SESS_SECRET = 'secretKeyBookReviewApplication'
 } = process.env;
 const IN_PROD = NODE_ENV === 'production';
+// Start express
 const app = express();
 // Create server
 const server = require('http').Server(app);
@@ -28,9 +31,6 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`MongoDB connected.`))
   .catch(err => console.log(err));
-// Start Passport
-app.use(passport.initialize());
-passportInit();
 
 // Accept requests from the client
 app.use(
@@ -52,6 +52,11 @@ app.use(
     }
   })
 );
+
+// Start Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+passportInit();
 // view engine setup
 //   SET
 app.set('views', path.join(__dirname, 'views'));
@@ -75,38 +80,15 @@ app.use(cookieParser());
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Redirect login if no user authenticated
-const redirectLogin = (req, res, next) => {
-  if (!req.session.userId) {
-    res.redirect('http://localhost:3000/');
-  } else {
-    next();
-  }
-};
-const redirectHome = (req, res, next) => {
-  if (req.session.userId) {
-    res.redirect('http://localhost:3000/');
-  } else {
-    next();
-  }
-};
-
-// FInd user
+// Set Global Variables
 app.use((req, res, next) => {
-  const { userId } = req.session;
-  if (userId) {
-    res.locals.user = {
-      id: 2,
-      name: 'rhijke'
-    };
-  }
   res.locals.success_msg = req.flash('success_msg');
-  res.locals.error = req.flash('error_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   next();
 });
 // Direct all requests to the auth router
 app.use('/users', require('./routes/users'));
-app.use('/', authRouter);
 
 // Set up port
 server.listen(PORT, () => {

@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema({
   savedBooks: {
     type: Array,
     default: []
+  },
+  id: {
+    type: Number,
+    default: 0
   }
 });
 

@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 // Create User account in mongoDB
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const { ensureAuthenticated } = require('../config/auth');
 
 // Redirect login if no user authenticated
 const redirectLogin = (req, res, next) => {
@@ -19,12 +21,7 @@ const redirectHome = (req, res, next) => {
     next();
   }
 };
-router.post('/login', redirectHome, function(req, res) {
-  console.log('login post');
-  const { email, password } = req.body;
-  console.log(`${email} ${password}`);
-  res.send('hello');
-});
+
 router.post('/register', redirectHome, function(req, res) {
   const { name, email, password, password2 } = req.body;
   let error = [];
@@ -77,15 +74,40 @@ router.post('/register', redirectHome, function(req, res) {
   console.log(`register post `);
 });
 
-router.post('/logout', redirectLogin, function(req, res) {
-  const { user } = res.locals;
-  console.log(`${user.id}`);
-  console.log('posted to logout');
-  req.session.destroy(err => {
-    if (err) console.log(err);
-    res.clearCookie(SESS_NAME);
-    res.redirect('http://localhost:3000/logout');
-  });
-});
+// router.post('/logout', redirectLogin, function(req, res) {
+//   const { user } = res.locals;
+//   console.log(`${user.id}`);
+//   console.log('posted to logout');
+//   req.session.destroy(err => {
+//     if (err) console.log(err);
+//     res.clearCookie(SESS_NAME);
+//     res.redirect('http://localhost:3000/logout');
+//   });
+// });
 
+// handle Login POST request
+router.post('/login', (req, res) => {
+  passport.authenticate('local', {
+    successRedirect: 'http://localhost:3000/booklist',
+    failureRedirect: 'http://localhost:3000/login',
+    failureFlash: true
+  })(req, res, next);
+  console.log('login post');
+  const { email, password } = req.body;
+  console.log(`${email} ${password}`);
+  res.send('hello');
+});
+router.get(
+  'http://localhost:3000/booklist',
+  ensureAuthenticated,
+  (req, res) => {
+    console.log('logged in');
+  }
+);
+// handle Logout GET request
+router.get('http://localhost:3000/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out.');
+  res.redirect('http://localhost:3000/login');
+});
 module.exports = router;

@@ -12,7 +12,7 @@ const SearchBarNav = () => {
 
   return (
     <div>
-      <form class="form-inline">
+      <form className="form-inline">
         <input
           onInput={updateSearch}
           className="form-control mr-sm-2"
