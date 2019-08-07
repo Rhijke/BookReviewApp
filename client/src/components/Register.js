@@ -9,7 +9,8 @@ export class Register extends Component {
     email: '',
     password: '',
     password2: '',
-    errors: []
+    errors: [],
+    accountCreated: false
   };
   handleSubmit = async e => {
     e.preventDefault();
@@ -24,6 +25,18 @@ export class Register extends Component {
         user
       });
       console.log(response);
+      if (response.status === 200) {
+        this.setState({
+          errors: [],
+          password: '',
+          password2: '',
+          name: '',
+          email: '',
+          accountCreated: true,
+          successMsg: response.data.msg
+        });
+        console.log(this.state);
+      }
     } catch (err) {
       console.log(Object.keys(err));
 
@@ -49,6 +62,14 @@ export class Register extends Component {
             {this.state.errors.length > 0
               ? this.state.errors.map(err => <Error key={err.msg} msg={err} />)
               : null}
+            {this.state.accountCreated ? (
+              <div className="alert alert-dismissible alert-success">
+                <button type="button" className="close" data-dismiss="alert">
+                  &times;
+                </button>
+                {this.state.successMsg}
+              </div>
+            ) : null}
           </div>
 
           <form onSubmit={this.handleSubmit}>
