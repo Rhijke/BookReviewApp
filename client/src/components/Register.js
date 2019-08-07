@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Error from './Error';
 
 export class Register extends Component {
   state = {
@@ -8,7 +9,7 @@ export class Register extends Component {
     email: '',
     password: '',
     password2: '',
-    error: ''
+    errors: []
   };
   handleSubmit = async e => {
     e.preventDefault();
@@ -21,15 +22,30 @@ export class Register extends Component {
     let response = await axios.post('http://localhost:3002/users/register', {
       user
     });
-    console.log(response.data);
+    let errors = response.data;
+    errors.forEach(err => {
+      this.setState(prevState => ({
+        errors: [...prevState.errors, err.msg]
+      }));
+    });
+
+    this.state.errors.forEach(err => console.log(err));
   };
   render() {
+    let errors = this.state.errors.length > 0;
+    console.log(errors);
     return (
       <div className="mt-5 mr-auto col-md-4 offset-md-4">
         <div className="card card-body">
           <h2 className="text-center mb-3">
             <i className="fas fa-user-plus" /> Register
           </h2>
+          <div>
+            {this.state.errors.length > 0 ? (
+              <Error msg={this.state.errors[0]} />
+            ) : null}
+          </div>
+
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label>Name</label>
