@@ -60,7 +60,7 @@ export class Register extends Component {
             </div>
             <button className="btn btn-dark">Create Account</button>
           </form>
-          <p class="mt-4">
+          <p className="mt-4">
             Have An Account? <Link to="/login">Login</Link>
           </p>
         </div>

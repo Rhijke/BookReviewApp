@@ -14,8 +14,8 @@ export class Login extends Component {
     return (
       <div className="mt-5 mr-auto col-md-4 offset-md-4">
         <div className="card card-body">
-          <h2 class="text-center mb-3">
-            <i class="fas fa-sign-in" /> Login
+          <h2 className="text-center mb-3">
+            <i className="fas fa-sign-in" /> Login
           </h2>
           <form method="post" action="http://localhost:3002/users/login">
             <div className="form-group">
@@ -41,7 +41,7 @@ export class Login extends Component {
 
             <button className="btn btn-dark">Login</button>
           </form>
-          <p class="mt-4">
+          <p className="mt-4">
             No Account? <a href="/register">Register</a>
           </p>
         </div>

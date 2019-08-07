@@ -97,15 +97,8 @@ router.post('/login', (req, res) => {
   console.log(`${email} ${password}`);
   res.send('hello');
 });
-router.get(
-  'http://localhost:3000/booklist',
-  ensureAuthenticated,
-  (req, res) => {
-    console.log('logged in');
-  }
-);
 // handle Logout GET request
-router.get('http://localhost:3000/logout', (req, res) => {
+router.post('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out.');
   res.redirect('http://localhost:3000/login');
