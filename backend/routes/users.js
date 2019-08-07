@@ -71,18 +71,19 @@ router.post('/register', redirectHome, function(req, res) {
     });
   }
 });
-
-// handle Login POST request
-router.post('/login', (req, res) => {
-  passport.authenticate('local', {
-    successRedirect: 'http://localhost:3000/booklist',
-    failureRedirect: 'http://localhost:3000/login',
-    failureFlash: true
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(user);
+    if (!user) {
+      console.log(info);
+      return res.status(400).send(info);
+    } else {
+      res.status(200).send({ message: `${user.name} logged in successfully.` });
+    }
   })(req, res, next);
-  console.log('login post');
-  const { email, password } = req.body;
-  console.log(`${email} ${password}`);
-  res.send('hello');
 });
 // handle Logout GET request
 router.post('/logout', (req, res) => {
