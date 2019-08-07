@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { linkButton, LoginLink } from './OAuth';
+import { linkButton } from './OAuth';
 import SearchBarNav from './SearchBarNav';
 import '../App.css';
 import '../App.js';
-import io from 'socket.io-client';
-import { Search } from './SearchBar';
-
-const socket = io('http://localhost:3002');
 
 function Nav(props) {
   const navStyle = {
@@ -62,7 +58,7 @@ function Nav(props) {
               </Link>
             </li>
             <li className="nav-item">
-              <form method="post" action="http://localhost:3002/logout">
+              <form method="post" action="http://localhost:3002/users/logout">
                 <button style={linkButton} className="nav-link">
                   Logout
                 </button>

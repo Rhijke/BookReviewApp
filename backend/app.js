@@ -12,6 +12,7 @@ const passportInit = require('./routes/init.passport');
 const flash = require('connect-flash');
 let initPassport = require('./config/passport');
 initPassport(passport);
+
 // Set environment variables if there are none
 const {
   PORT = 3002,
@@ -31,14 +32,8 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`MongoDB connected.`))
   .catch(err => console.log(err));
-
 // Accept requests from the client
-app.use(
-  cors({
-    origin: ['http:/localhost:3000/', 'http://127.0.0.1:3000/']
-  })
-);
-
+app.use(cors());
 // Create Sessions
 app.use(
   session({

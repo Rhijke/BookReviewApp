@@ -23,13 +23,12 @@ const redirectHome = (req, res, next) => {
 };
 
 router.post('/register', redirectHome, function(req, res) {
-  const { name, email, password, password2 } = req.body;
+  const { name, email, password, password2 } = req.body.user;
   let error = [];
   // Check all fields are filled in
   if (!name || !email || !password || !password2) {
     error.push({ msg: 'Please fill in all fields.' });
   }
-
   // Check that passwords match
   if (password !== password2) {
     error.push({ msg: 'Passwords do not match.' });
@@ -37,12 +36,14 @@ router.post('/register', redirectHome, function(req, res) {
 
   if (error.length > 0) {
     console.log(error);
+    res.send(error);
   } else {
     console.log('Pass');
     // Validation passed
     User.findOne({ email: email }).then(user => {
       if (user) {
         error.push({ msg: 'Email is already in use.' });
+        res.send(error);
       } else {
         const newUser = new User({
           name,
@@ -60,8 +61,10 @@ router.post('/register', redirectHome, function(req, res) {
             newUser
               .save()
               .then(() => {
-                req.flash('success_msg', 'You are now registerd.');
-                res.redirect('http://localhost:3000/login');
+                res.send({
+                  success: true,
+                  msg: 'You are now registered'
+                });
               })
               .catch(err => console.log(err));
           });
@@ -73,17 +76,6 @@ router.post('/register', redirectHome, function(req, res) {
   // Check length of password
   console.log(`register post `);
 });
-
-// router.post('/logout', redirectLogin, function(req, res) {
-//   const { user } = res.locals;
-//   console.log(`${user.id}`);
-//   console.log('posted to logout');
-//   req.session.destroy(err => {
-//     if (err) console.log(err);
-//     res.clearCookie(SESS_NAME);
-//     res.redirect('http://localhost:3000/logout');
-//   });
-// });
 
 // handle Login POST request
 router.post('/login', (req, res) => {
