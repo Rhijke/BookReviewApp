@@ -14,14 +14,11 @@ function Nav(props) {
   };
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark bg-dark"
+      className="navbar navbar-expand-lg navbar-dark bg-primary"
       style={navStyle}
     >
-      <Link className="navbar-brand" to="/">
-        Home
-      </Link>
       <button
-        className="navbar-toggler"
+        class="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
@@ -29,44 +26,57 @@ function Nav(props) {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon" />
+        <span class="navbar-toggler-icon" />
       </button>
 
-      <div className="collapse navbar-collapse w-100 order-0" id="navbarNav">
-        <ul className="navbar-nav ">
-          <li className="nav-item ">
-            <Link className="nav-link" to="/booklist">
-              Book List
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/writereview">
-              Write a Review
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div className="navbar-collapse collapse w-100 order-3">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            {/* <LoginLink
-              provider={'goodreads'}
-              key={'goodreads'}
-              socket={socket}
-            /> */}
-            <Link to="/login" className="nav-link">
-              {' '}
-              Login{' '}
-            </Link>
-          </li>
-          <li className="nav-item">
-            <form method="post" action="http://localhost:3002/logout">
-              <button style={linkButton} className="nav-link">
-                Logout
-              </button>
-            </form>
-          </li>
-        </ul>
+      <Link className="navbar-brand" to="/">
+        Home
+      </Link>
+      <div className="collapse navbar-collapse justify-content-between">
+        <div className="order-0" id="navbarNav">
+          <ul className="navbar-nav ">
+            <li className="nav-item ">
+              <Link className="nav-link" to="/booklist">
+                Book List
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/writereview">
+                Write a Review
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className="order-3">
+          <ul className="navbar-nav ml-auto">
+            <li>
+              <form class="form-inline">
+                <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Search"
+                />
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+                  Search
+                </button>
+              </form>
+            </li>
+            <li className="nav-item">
+              <Link to="/login" className="nav-link">
+                {' '}
+                Login{' '}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <form method="post" action="http://localhost:3002/logout">
+                <button style={linkButton} className="nav-link">
+                  Logout
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );
