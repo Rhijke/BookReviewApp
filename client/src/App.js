@@ -23,7 +23,7 @@ function App() {
           <Route path="/search/:search" exact component={SearchResults} />
           <Route path="/details/:book" component={BookDetails} />
           <Route path="/login" exact component={Login} />
-          <Route path="/createaccount" exact component={Register} />
+          <Route path="/register" exact component={Register} />
           <Route path="/logout" exact component={Logout} />
         </Switch>
       </div>
