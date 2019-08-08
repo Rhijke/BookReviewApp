@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 const SearchBarNav = () => {
   const [search, setSearch] = useState('');
 
-  // const [isLoading, setIsLoading] = useState(false);
-
   const updateSearch = e => {
     setSearch(e.target.value);
   };

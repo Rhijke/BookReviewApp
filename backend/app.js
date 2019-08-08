@@ -81,7 +81,7 @@ app.use((req, res, next) => {
 });
 // Routes
 app.use('/users', require('./routes/users'));
-app.use('/', require('./routes/booklist'));
+app.use('/', require('./routes/bookRouter'));
 app.get('*', function(req, res) {
   res.status(404).send('what???');
 });

@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { fetchBook } from './api/fetchBook';
 import './css/SearchResults.css';
+import axios from 'axios';
 import { Book } from './Book';
 
 const SearchResults = ({ match }) => {
   const [search, setSearch] = useState(`${match.params.search}`);
-  const [results, setResults] = useState([]);
+  const [searchResults, setResults] = useState([]);
 
   const searchBook = async () => {
-    let searchResults = await fetchBook(search);
-    setResults(searchResults);
+    let response = await axios.get(
+      `http://localhost:3002/search?search=${search}`
+    );
+    let results = response['data']['results']['work'];
+    if (results.length > 0) {
+      setResults(
+        results.map(book => {
+          return {
+            id: book['best_book']['id']['_'],
+            title: book['best_book'].title,
+            author: book['best_book'].author['_'],
+            smallImage: book['best_book'].small_image_url
+          };
+        })
+      );
+    }
   };
 
   useEffect(() => {
-    searchBook();
+    (async () => {
+      await searchBook();
+    })();
   }, []);
   return (
     <div>
@@ -21,7 +37,9 @@ const SearchResults = ({ match }) => {
         <h3>Search results for: {match.params.search.replace('+', ' ')}</h3>
       </div>
       <div className="searchresults">
-        {results.length > 0 ? results.map(book => Book(book)) : null}
+        {searchResults.length > 0
+          ? searchResults.map(book => Book(book))
+          : null}
       </div>
     </div>
   );
