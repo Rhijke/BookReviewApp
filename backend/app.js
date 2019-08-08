@@ -30,6 +30,13 @@ mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`MongoDB connected.`))
   .catch(err => console.log(err));
+
+// General config
+//   SET
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Accept requests from the client
 app.use(
   cors({
@@ -39,15 +46,6 @@ app.use(
   })
 );
 
-//   SET
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-//   USE
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
-app.use(express.json());
-app.use(cookieParser());
-app.use(flash());
 // Create Sessions
 app.use(
   session({
@@ -61,11 +59,17 @@ app.use(
     }
   })
 );
+// Enable body parser
 app.use(express.urlencoded({ extended: false }));
 
 // Start Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(cookieParser());
+app.use(flash());
 
 // Set Global Variables
 app.use((req, res, next) => {
@@ -75,9 +79,12 @@ app.use((req, res, next) => {
 
   next();
 });
-// Direct all requests to the auth router
+// Routes
 app.use('/users', require('./routes/users'));
-
+app.use('/', require('./routes/booklist'));
+app.get('*', function(req, res) {
+  res.status(404).send('what???');
+});
 // Set up port
 server.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}`);

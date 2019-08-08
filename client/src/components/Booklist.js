@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Book } from './Book';
-import { fetchBookList } from './api/fetchBookList';
 
 const BookList = ({ match }) => {
   const [user, setUser] = useState({});
   const [results, setResults] = useState([]);
-
-  const searchBook = async () => {
-    let searchResults = await fetchBookList();
-    setResults(searchResults);
+  const updateUser = newUser => {
+    setUser(newUser);
   };
-
+  const checkUserAuth = async () => {
+    try {
+      let response = await axios.get('http://localhost:3002/booklist');
+      console.log(response);
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      console.log(Object.keys(err));
+      console.log(err['config']);
+      return err;
+    }
+  };
   useEffect(() => {
+    console.log('Use effect called');
     (async () => {
-      let user = await axios.get('http://localhost:3002/users/booklist');
-      console.log(user);
+      let msg = await checkUserAuth();
+      console.log(msg);
     })();
-
     // searchBook();
   }, []);
 

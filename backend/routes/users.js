@@ -4,18 +4,10 @@ const passport = require('passport');
 // Create User account in mongoDB
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-const { ensureAuthenticated } = require('../config/auth');
 
-// Redirect login if no user authenticated
-const redirectLogin = (req, res, next) => {
-  if (!req.session.userId) {
-    res.redirect('http://localhost:3000/');
-  } else {
-    next();
-  }
-};
 const redirectHome = (req, res, next) => {
-  if (req.session.userId) {
+  console.log('redirect home');
+  if (req.session.user) {
     res.redirect('http://localhost:3000/');
   } else {
     next();
@@ -73,6 +65,7 @@ router.post('/register', redirectHome, function(req, res) {
 });
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
+    console.log('Login Post Called:');
     if (err) {
       console.log(err);
     }
@@ -81,10 +74,7 @@ router.post('/login', function(req, res, next) {
       console.log(info);
       return res.status(400).send(info);
     } else {
-      console.log(req.session);
-      console.log(req._passport);
       console.log(req.sessionID);
-
       req.logIn(user, function(err) {
         if (err) {
           res.status(400).send(err);
@@ -99,15 +89,10 @@ router.post('/login', function(req, res, next) {
 });
 // handle Logout GET request
 router.post('/logout', (req, res) => {
+  console.log('Logout post');
+  console.log(req.user);
   req.logout();
   req.flash('success_msg', 'You are logged out.');
   res.redirect('http://localhost:3000/login');
-});
-
-// handle booklist page
-router.get('/booklist', ensureAuthenticated, (req, res) => {
-  console.log(req.session);
-  console.log(req.user);
-  res.end();
 });
 module.exports = router;

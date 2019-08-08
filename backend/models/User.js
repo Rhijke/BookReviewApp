@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     type: Array,
     default: []
   },
-  id: {
+  goodreadsID: {
     type: Number,
     default: 0
   }
