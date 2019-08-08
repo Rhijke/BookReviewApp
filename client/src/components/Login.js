@@ -35,7 +35,7 @@ export class Login extends Component {
       }
     } catch (err) {
       console.log(Object.keys(err));
-      console.log(err.response);
+      console.log(err);
       let formError = err['response']['data']['message'];
       if (!this.state.errors.some(err => err === formError)) {
         this.setState(prevState => ({

@@ -76,14 +76,24 @@ router.post('/login', function(req, res, next) {
     if (err) {
       console.log(err);
     }
-    console.log(user);
+
     if (!user) {
       console.log(info);
       return res.status(400).send(info);
     } else {
       console.log(req.session);
+      console.log(req._passport);
       console.log(req.sessionID);
-      res.status(200).send({ message: `${user.name} logged in successfully.` });
+
+      req.logIn(user, function(err) {
+        if (err) {
+          res.status(400).send(err);
+        }
+        console.log(user);
+        return res
+          .status(200)
+          .send({ message: `${user.name} logged in successfully.` });
+      });
     }
   })(req, res, next);
 });
@@ -92,5 +102,12 @@ router.post('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out.');
   res.redirect('http://localhost:3000/login');
+});
+
+// handle booklist page
+router.get('/booklist', ensureAuthenticated, (req, res) => {
+  console.log(req.session);
+  console.log(req.user);
+  res.end();
 });
 module.exports = router;

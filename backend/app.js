@@ -1,15 +1,13 @@
 const express = require('express');
 const passport = require('passport');
-const socketio = require('socket.io');
 const mongoose = require('mongoose');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
-const authRouter = require('./routes/auth.router');
-const passportInit = require('./routes/init.passport');
 const flash = require('connect-flash');
+// Passport Config
 let initPassport = require('./config/passport');
 initPassport(passport);
 
@@ -33,7 +31,23 @@ mongoose
   .then(() => console.log(`MongoDB connected.`))
   .catch(err => console.log(err));
 // Accept requests from the client
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'http://localhost:3002'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  })
+);
+
+//   SET
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+//   USE
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(cookieParser());
+app.use(flash());
 // Create Sessions
 app.use(
   session({
@@ -47,39 +61,18 @@ app.use(
     }
   })
 );
+app.use(express.urlencoded({ extended: false }));
 
 // Start Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
-passportInit();
-// view engine setup
-//   SET
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-// Connecting sockets to the server and adding them to the request
-// so that we can access them later in the controller
-const io = socketio(server);
-io.on('connection', function(socket) {
-  app.set('socket', socket);
-  console.log('a user connected');
-  socket.on('disconnect', function() {
-    console.log('user disconnected');
-  });
-});
-app.set('io', io);
-//   USE
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(flash());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Set Global Variables
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+
   next();
 });
 // Direct all requests to the auth router
