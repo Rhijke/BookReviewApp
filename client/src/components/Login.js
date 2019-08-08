@@ -73,6 +73,7 @@ export class Login extends Component {
                 className="form-control"
                 placeholder={this.state.email ? `${this.state.email}` : 'Email'}
                 name="email"
+                value={this.state.loggedIn ? '' : `${this.state.email}`}
                 type="text"
               />
             </div>
@@ -82,6 +83,7 @@ export class Login extends Component {
                 onChange={e => this.setState({ password: e.target.value })}
                 className="form-control"
                 placeholder="Password"
+                value={this.state.loggedIn ? '' : `${this.state.password}`}
                 name="password"
                 type="password"
               />

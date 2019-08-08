@@ -81,6 +81,8 @@ router.post('/login', function(req, res, next) {
       console.log(info);
       return res.status(400).send(info);
     } else {
+      console.log(req.session);
+      console.log(req.sessionID);
       res.status(200).send({ message: `${user.name} logged in successfully.` });
     }
   })(req, res, next);
