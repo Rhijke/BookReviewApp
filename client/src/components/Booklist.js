@@ -9,38 +9,42 @@ const BookList = ({ match }) => {
     savedBooks: []
   });
   const [results, setResults] = useState([]);
+  const [notLoggedIn, setLoggedIn] = useState(true);
   const [error, setError] = useState('');
   const checkUserAuth = async () => {
     try {
       let response = await axios.get('http://localhost:3002/booklist');
-      console.log(response);
       return response.data;
     } catch (err) {
-      console.log(Object.keys(err));
-      console.log(err['config']);
+      console.log('Catch called');
+      console.log(err);
       setError(err);
     }
   };
   useEffect(() => {
-    console.log('Use effect called');
     (async () => {
       try {
-        let { name, savedBooks } = await checkUserAuth();
-        setUser({
-          ...user,
-          name,
-          savedBooks
-        });
+        let result = await checkUserAuth();
+        console.log(result);
+        if (result.loggedIn) {
+          return;
+        } else {
+          setLoggedIn(false);
+          setUser({
+            ...user,
+            name: result.name,
+            savedBooks: result.savedBooks
+          });
+        }
       } catch (err) {
         return;
       }
     })();
   }, []);
 
-  if (user.name !== '') {
+  if (notLoggedIn) {
     return (
       <div>
-        {console.log(user.name)}
         <div className="page-header">
           <h3>Book list for {user.name}</h3>
         </div>
@@ -55,8 +59,9 @@ const BookList = ({ match }) => {
   } else {
     return (
       <div>
+        {console.log(user)}
+        {console.log(notLoggedIn)}
         <h3 className="page-header">
-          {' '}
           Please <Link to="/login">login </Link>to see your saved books.
         </h3>
       </div>
