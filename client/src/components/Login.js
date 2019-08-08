@@ -32,7 +32,6 @@ export class Login extends Component {
           loggedIn: true,
           successMsg: response.data.message
         });
-        console.log(this.state);
       }
     } catch (err) {
       console.log(Object.keys(err));
