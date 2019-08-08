@@ -3,16 +3,19 @@ import axios from 'axios';
 import { Book } from './Book';
 
 const BookList = ({ match }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    name: 'nbasd',
+    savedBooks: [1, 2, 3]
+  });
   const [results, setResults] = useState([]);
-  const updateUser = newUser => {
+
+  const updateUser = async newUser => {
     setUser(newUser);
   };
   const checkUserAuth = async () => {
     try {
       let response = await axios.get('http://localhost:3002/booklist');
       console.log(response);
-      console.log(response.data);
       return response.data;
     } catch (err) {
       console.log(Object.keys(err));
@@ -23,26 +26,35 @@ const BookList = ({ match }) => {
   useEffect(() => {
     console.log('Use effect called');
     (async () => {
-      let msg = await checkUserAuth();
-      console.log(msg);
+      let { name, savedBooks } = await checkUserAuth();
+      setUser({
+        ...user,
+        name,
+        savedBooks
+      });
     })();
-    // searchBook();
   }, []);
 
-  if (false) {
+  if (user) {
     return (
       <div>
         <div className="page-header">
-          <h3>Book list for </h3>
+          <h3>Book list for {user.name}</h3>
         </div>
         <div className="searchresults">
-          {results.length > 0 ? results.map(book => Book(book)) : null}
+          {/* {user.savedBooks.length > 0 ? user.savedBooks.map(book => Book(book)) : null} */}
+          {user.savedBooks.length > 0
+            ? user.savedBooks.map(book => <p>book</p>)
+            : null}
         </div>
       </div>
     );
   } else {
     return (
-      <h3 className="page-header"> Please login to see your saved books.</h3>
+      <div>
+        {console.log(user)}
+        <h3 className="page-header"> Please login to see your saved books.</h3>
+      </div>
     );
   }
 };
