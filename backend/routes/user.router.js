@@ -4,6 +4,7 @@ const passport = require('passport');
 // Create User account in mongoDB
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const UserController = require('../models/User.controller');
 
 const redirectHome = (req, res, next) => {
   console.log('redirect home');
@@ -13,6 +14,16 @@ const redirectHome = (req, res, next) => {
     next();
   }
 };
+router.put('/update/:id', UserController.addBook);
+router.delete('/remove/:id', UserController.deleteBook);
+
+router.get('/loggedIn', (req, res) => {
+  if (req.user) {
+    res.json({ loggedIn: true });
+  } else {
+    res.json({ loggedIn: false });
+  }
+});
 
 router.post('/register', redirectHome, function(req, res) {
   const { name, email, password, password2 } = req.body.user;

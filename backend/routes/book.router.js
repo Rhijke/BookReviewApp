@@ -17,33 +17,25 @@ router.get('/search', async (req, res) => {
 
 router.get('/booklist', async (req, res) => {
   console.log(req.user);
-  if (!req.user) {
-    res.json({ loggedIn: false });
-  } else {
-    console.log(Object.keys(req));
+  if (req.user) {
     res.json({
       name: req.user.name,
       savedBooks: req.user.savedBooks,
       loggedIn: true
     });
-  }
-  console.log(Object.keys(req));
-});
-
-router.post('/save', (req, res) => {
-  console.log(req.query);
-  console.log(req.session);
-  console.log(req.user);
-  if (req.user.name) {
-    res.json({ loggedIn: true });
   } else {
     res.json({ loggedIn: false });
   }
 });
+
 router.get('/:bookId', async (req, res) => {
   const bookId = req.params.bookId;
-  const response = await gr.showBook(bookId);
-  res.json(response['book']);
+  try {
+    const response = await gr.showBook(bookId);
+    res.json(response['book']);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;

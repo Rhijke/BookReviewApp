@@ -8,6 +8,7 @@ const BookDetails = ({ location }) => {
   });
   const [saved, setSaved] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [error, setError] = useState();
 
   const searchBook = async () => {
     try {
@@ -29,12 +30,35 @@ const BookDetails = ({ location }) => {
       });
     } catch (err) {
       console.log(err);
+      setError(err);
     }
   };
   const checkUser = async () => {
-    let user = await axios.post(`http://localhost:3002/save?id=${book['id']}`);
-    console.log(user.data.loggedIn);
-    setLoggedIn(user.data.loggedIn);
+    try {
+      let user = await axios.get(`http://localhost:3002/users/loggedIn`);
+      console.log(user.data.loggedIn);
+      setLoggedIn(user.data.loggedIn);
+    } catch (err) {
+      console.log(err);
+      setError({
+        status: err.response.status,
+        statusText: err.response.statusText
+      });
+    }
+  };
+
+  const saveBook = async bookId => {
+    try {
+      let response = await axios.post(
+        `http://localhost:3002/users/update/${bookId}`
+      );
+      console.log(response);
+    } catch (err) {
+      setError({
+        status: err.response.status,
+        statusText: err.response.statusText
+      });
+    }
   };
 
   useEffect(() => {
@@ -45,6 +69,13 @@ const BookDetails = ({ location }) => {
       await checkUser();
     })();
   }, []);
+  if (error) {
+    return (
+      <h2 className="page-header">
+        {error.status}: {error.statusText}
+      </h2>
+    );
+  }
   if (loading === true) {
     return (
       <h2 className="page-header">Searching book details for {book.title}.</h2>
@@ -80,8 +111,11 @@ const BookDetails = ({ location }) => {
             </div>
             <button
               className="btn btn-dark"
-              disabled={{ loggedIn } ? false : true}
-              onClick={async () => {}}
+              disabled={!loggedIn}
+              onClick={async () => {
+                await saveBook(book['id']);
+                console.log('u click me');
+              }}
             >
               {saved ? 'Remove book' : 'Save Book'}
             </button>

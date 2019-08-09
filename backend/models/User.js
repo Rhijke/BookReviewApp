@@ -23,5 +23,15 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
+UserSchema.statics = {
+  update: function(query, updateData, cb) {
+    this.findOneAndUpdate(query, { $set: updateData }, { new: true }, cb);
+  },
+
+  delete: function(query, cb) {
+    this.findOneAndDelete(query, cb);
+  }
+};
+
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

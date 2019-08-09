@@ -10,7 +10,6 @@ const flash = require('connect-flash');
 // Passport Config
 let initPassport = require('./config/passport');
 initPassport(passport);
-
 // Set environment variables if there are none
 const {
   PORT = 3002,
@@ -80,11 +79,12 @@ app.use((req, res, next) => {
   next();
 });
 // Routes
-app.use('/users', require('./routes/users'));
-app.use('/', require('./routes/bookRouter'));
+app.use('/users', require('./routes/user.router'));
+app.use('/', require('./routes/book.router'));
 app.get('*', function(req, res) {
   res.status(404).send('what???');
 });
+
 // Set up port
 server.listen(PORT, () => {
   console.log(`Server running at: http://localhost:${PORT}`);
