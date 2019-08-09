@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { linkButton } from './OAuth';
 import SearchBarNav from './SearchBarNav';
-import '../App.css';
-import '../App.js';
 
 function Nav(props) {
   const navStyle = {
@@ -12,7 +10,7 @@ function Nav(props) {
   };
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark bg-primary"
+      className="sticky-top navbar navbar-expand-lg navbar-dark bg-primary"
       style={navStyle}
     >
       <button
