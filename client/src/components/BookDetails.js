@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './css/BookDetails.css';
 const BookDetails = ({ location }) => {
   const [loading, setLoading] = useState(true);
@@ -6,8 +7,19 @@ const BookDetails = ({ location }) => {
     title: location.state.book.title
   });
   const [saved, setSaved] = useState(false);
+
+  const searchBook = async () => {
+    let response = await axios.get(
+      `http://localhost:3002/${location.state.book['id']}`
+    );
+    console.log(response);
+  };
+
   useEffect(() => {
     console.log(location.state);
+    (async () => {
+      await searchBook();
+    })();
   }, []);
   if (loading === true) {
     return (

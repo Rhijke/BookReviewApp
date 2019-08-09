@@ -32,9 +32,11 @@ router.get('/booklist', async (req, res) => {
 router.post('/save', (req, res) => {
   console.log(res.query);
 });
-router.get('/:bookId', (req, res) => {
-  console.log(req.params.bookId);
-  res.end();
+router.get('/:bookId', async (req, res) => {
+  const bookId = req.params.bookId;
+  const response = await gr.showBook(bookId);
+  console.log(response);
+  res.json(response['book']);
 });
 
 module.exports = router;
