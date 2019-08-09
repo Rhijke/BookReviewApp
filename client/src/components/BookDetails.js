@@ -49,10 +49,27 @@ const BookDetails = ({ location }) => {
 
   const saveBook = async bookId => {
     try {
-      let response = await axios.post(
+      let response = await axios.put(
         `http://localhost:3002/users/update/${bookId}`
       );
       console.log(response);
+      alert(response.data.message);
+      setSaved(true);
+    } catch (err) {
+      setError({
+        status: err.response.status,
+        statusText: err.response.statusText
+      });
+    }
+  };
+  const removeBook = async bookId => {
+    try {
+      let response = await axios.delete(
+        `http://localhost:3002/users/remove/${bookId}`
+      );
+      console.log(response);
+      alert(response.data.message);
+      setSaved(false);
     } catch (err) {
       setError({
         status: err.response.status,
@@ -113,8 +130,11 @@ const BookDetails = ({ location }) => {
               className="btn btn-dark"
               disabled={!loggedIn}
               onClick={async () => {
-                await saveBook(book['id']);
-                console.log('u click me');
+                if (!saved) {
+                  await saveBook(book['id']);
+                } else {
+                  await removeBook(book['id']);
+                }
               }}
             >
               {saved ? 'Remove book' : 'Save Book'}

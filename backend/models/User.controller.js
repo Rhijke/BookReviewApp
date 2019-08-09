@@ -11,7 +11,7 @@ exports.addBook = function(req, res, next) {
       });
     } else {
       res.json({
-        message: 'Book updated successfully'
+        message: 'Book added successfully'
       });
     }
   });
