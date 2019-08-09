@@ -6,8 +6,8 @@ export const Book = book => {
     <Link
       key={book.id}
       to={{
-        pathname: `/details/${book.title}`,
-        state: book
+        pathname: `/details/${book.id}`,
+        state: { book }
       }}
     >
       <div className={'book-item'} key={book.id['_']}>

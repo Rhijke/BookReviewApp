@@ -32,5 +32,9 @@ router.get('/booklist', async (req, res) => {
 router.post('/save', (req, res) => {
   console.log(res.query);
 });
+router.get('/:bookId', (req, res) => {
+  console.log(req.params.bookId);
+  res.end();
+});
 
 module.exports = router;

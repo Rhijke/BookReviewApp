@@ -1,6 +1,7 @@
 import firebase from './firebase';
 
 export const saveBook = async book => {
+  console.log('save book function');
   if (firebase.auth().currentUser) {
     let userID = firebase.auth().currentUser.uid;
     let dbCollectionUser = firebase
@@ -34,6 +35,7 @@ export const saveBook = async book => {
 };
 
 export const checkSavedBook = async book => {
+  console.log('check saved book');
   if (firebase.auth().currentUser) {
     let userID = firebase.auth().currentUser.uid;
     let doc = await firebase

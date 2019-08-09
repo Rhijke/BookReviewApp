@@ -17,9 +17,9 @@ const SearchResults = ({ match }) => {
         results.map(book => {
           return {
             id: book['best_book']['id']['_'],
-            title: book['best_book'].title,
-            author: book['best_book'].author['_'],
-            smallImage: book['best_book'].small_image_url
+            title: book['best_book']['title'],
+            author: book['best_book']['author']['name'],
+            smallImage: book['best_book']['small_image_url']
           };
         })
       );
