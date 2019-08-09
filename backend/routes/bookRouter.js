@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const goodreads = require('goodreads-api-node');
 const gr = goodreads(require('../config/config'));
 
@@ -30,12 +31,18 @@ router.get('/booklist', async (req, res) => {
 });
 
 router.post('/save', (req, res) => {
-  console.log(res.query);
+  console.log(req.query);
+  console.log(req.session);
+  console.log(req.user);
+  if (req.user.name) {
+    res.json({ loggedIn: true });
+  } else {
+    res.json({ loggedIn: false });
+  }
 });
 router.get('/:bookId', async (req, res) => {
   const bookId = req.params.bookId;
   const response = await gr.showBook(bookId);
-  console.log(response);
   res.json(response['book']);
 });
 

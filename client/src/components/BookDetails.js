@@ -7,6 +7,7 @@ const BookDetails = ({ location }) => {
     title: location.state.book.title
   });
   const [saved, setSaved] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const searchBook = async () => {
     try {
@@ -23,11 +24,17 @@ const BookDetails = ({ location }) => {
         publicationYear: data['publication_year'],
         isbn: data['isbn'],
         rating: data['average_rating'],
-        description: data['description']
+        description: data['description'],
+        id: location.state.book.id
       });
     } catch (err) {
       console.log(err);
     }
+  };
+  const checkUser = async () => {
+    let user = await axios.post(`http://localhost:3002/save?id=${book['id']}`);
+    console.log(user.data.loggedIn);
+    setLoggedIn(user.data.loggedIn);
   };
 
   useEffect(() => {
@@ -35,6 +42,7 @@ const BookDetails = ({ location }) => {
     (async () => {
       await searchBook();
       setLoading(false);
+      await checkUser();
     })();
   }, []);
   if (loading === true) {
@@ -72,12 +80,8 @@ const BookDetails = ({ location }) => {
             </div>
             <button
               className="btn btn-dark"
-              onClick={async () => {
-                // let found = await saveBook.call(this, book['id']);
-                // this.setState({
-                //   saved: found
-                // });
-              }}
+              disabled={{ loggedIn } ? false : true}
+              onClick={async () => {}}
             >
               {saved ? 'Remove book' : 'Save Book'}
             </button>
