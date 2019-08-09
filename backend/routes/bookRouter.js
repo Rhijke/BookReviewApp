@@ -19,9 +19,18 @@ router.get('/booklist', async (req, res) => {
   if (!req.user) {
     res.json({ loggedIn: false });
   } else {
-    res.json(req.user);
+    console.log(Object.keys(req));
+    res.json({
+      name: req.user.name,
+      savedBooks: req.user.savedBooks,
+      loggedIn: true
+    });
   }
   console.log(Object.keys(req));
+});
+
+router.post('/save', (req, res) => {
+  console.log(res.query);
 });
 
 module.exports = router;

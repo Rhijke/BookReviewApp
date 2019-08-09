@@ -9,7 +9,7 @@ const BookList = ({ match }) => {
     savedBooks: []
   });
   const [results, setResults] = useState([]);
-  const [notLoggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState('');
   const checkUserAuth = async () => {
     try {
@@ -26,10 +26,10 @@ const BookList = ({ match }) => {
       try {
         let result = await checkUserAuth();
         console.log(result);
-        if (result.loggedIn) {
+        if (!result.loggedIn) {
           return;
         } else {
-          setLoggedIn(false);
+          setLoggedIn(true);
           setUser({
             ...user,
             name: result.name,
@@ -42,7 +42,7 @@ const BookList = ({ match }) => {
     })();
   }, []);
 
-  if (notLoggedIn) {
+  if (loggedIn) {
     return (
       <div>
         <div className="page-header">
@@ -59,11 +59,10 @@ const BookList = ({ match }) => {
   } else {
     return (
       <div>
-        {console.log(user)}
-        {console.log(notLoggedIn)}
         <h3 className="page-header">
           Please <Link to="/login">login </Link>to see your saved books.
         </h3>
+        <p>{error}</p>
       </div>
     );
   }

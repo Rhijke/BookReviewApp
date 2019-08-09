@@ -17,12 +17,23 @@ export class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(user);
+    let axiosConfig = {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      }
+    };
+
     try {
-      let response = await axios.post('http://localhost:3002/users/login', {
-        email: user.email,
-        password: user.password
-      });
+      let response = await axios.post(
+        'http://localhost:3002/users/login',
+        {
+          email: user.email,
+          password: user.password
+        },
+        axiosConfig
+      );
+      console.log('Response: ');
       console.log(response);
       if (response.status === 200) {
         this.setState({
