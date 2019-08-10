@@ -4,7 +4,9 @@ import './css/BookDetails.css';
 const BookDetails = ({ location }) => {
   const [loading, setLoading] = useState(true);
   const [book, setBook] = useState({
-    title: location.state.book.title
+    title: location.state.book.title,
+    id: location.state.book.id,
+    author: location.state.book.author
   });
   const [saved, setSaved] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -20,13 +22,11 @@ const BookDetails = ({ location }) => {
 
       setBook({
         ...book,
-        author: location.state.book.author,
         image: data['image_url'],
         publicationYear: data['publication_year'],
         isbn: data['isbn'],
         rating: data['average_rating'],
-        description: data['description'],
-        id: location.state.book.id
+        description: data['description']
       });
     } catch (err) {
       console.log(err);
@@ -63,7 +63,7 @@ const BookDetails = ({ location }) => {
   };
   const removeBook = async bookId => {
     try {
-      const response = await axios.deconste(
+      const response = await axios.delete(
         `http://localhost:3002/users/remove/${bookId}`
       );
       console.log(response);
@@ -77,12 +77,23 @@ const BookDetails = ({ location }) => {
     }
   };
 
+  const checkSavedBook = async bookId => {
+    const response = await axios.get(
+      `http://localhost:3002/users/find/${bookId}`
+    );
+    console.log(response.data);
+    setSaved(response.data['saved']);
+  };
+
   useEffect(() => {
     console.log(location.state);
     (async () => {
       await searchBook();
       setLoading(false);
       await checkUser();
+      console.log('After check user');
+      console.log(book);
+      await checkSavedBook(book['id']);
     })();
   }, []);
   if (error) {
