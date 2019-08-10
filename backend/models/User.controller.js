@@ -26,9 +26,7 @@ exports.addBook = function(req, res, next) {
 
 exports.deleteBook = function(req, res, next) {
   if (req.user) {
-    const deleteBook = req.user.savedBooks.map(
-      book => bookId !== req.params.id
-    );
+    const deleteBook = req.user.savedBooks.map(book => book !== req.params.id);
     console.log(req.user);
     User.updateOne({ _id: req.user._id }, { savedBooks: deleteBook }, function(
       err,
