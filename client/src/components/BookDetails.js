@@ -12,11 +12,11 @@ const BookDetails = ({ location }) => {
 
   const searchBook = async () => {
     try {
-      let response = await axios.get(
+      const response = await axios.get(
         `http://localhost:3002/${location.state.book['id']}`
       );
       console.log(response);
-      let { data } = response;
+      const { data } = response;
 
       setBook({
         ...book,
@@ -35,8 +35,7 @@ const BookDetails = ({ location }) => {
   };
   const checkUser = async () => {
     try {
-      let user = await axios.get(`http://localhost:3002/users/loggedIn`);
-      console.log(user.data.loggedIn);
+      const user = await axios.get(`http://localhost:3002/users/loggedIn`);
       setLoggedIn(user.data.loggedIn);
     } catch (err) {
       console.log(err);
@@ -49,7 +48,7 @@ const BookDetails = ({ location }) => {
 
   const saveBook = async bookId => {
     try {
-      let response = await axios.put(
+      const response = await axios.put(
         `http://localhost:3002/users/update/${bookId}`
       );
       console.log(response);
@@ -64,7 +63,7 @@ const BookDetails = ({ location }) => {
   };
   const removeBook = async bookId => {
     try {
-      let response = await axios.delete(
+      const response = await axios.deconste(
         `http://localhost:3002/users/remove/${bookId}`
       );
       console.log(response);

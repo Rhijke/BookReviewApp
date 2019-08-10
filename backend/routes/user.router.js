@@ -16,6 +16,7 @@ const redirectHome = (req, res, next) => {
 };
 router.put('/update/:id', UserController.addBook);
 router.delete('/remove/:id', UserController.deleteBook);
+router.get('/find/:id', UserController.checkSavedBook);
 
 router.get('/loggedIn', (req, res) => {
   if (req.user) {
