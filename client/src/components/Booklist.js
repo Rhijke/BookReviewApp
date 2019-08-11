@@ -49,9 +49,8 @@ const BookList = ({ match }) => {
           <h3>Book list for {user.name}</h3>
         </div>
         <div className="searchresults">
-          {/* {user.savedBooks.length > 0 ? user.savedBooks.map(book => Book(book)) : null} */}
           {user.savedBooks.length > 0
-            ? user.savedBooks.map(book => <p>book</p>)
+            ? user.savedBooks.map(book => Book({ id: book }))
             : null}
         </div>
       </div>

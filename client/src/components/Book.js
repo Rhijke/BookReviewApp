@@ -10,7 +10,7 @@ export const Book = book => {
         state: { book }
       }}
     >
-      <div className={'book-item'} key={book.id['_']}>
+      <div className={'book-item'} key={book.id}>
         <h5>
           <img src={book.smallImage} alt="bookcover" />
           {book.title}

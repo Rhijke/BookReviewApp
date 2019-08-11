@@ -26,7 +26,11 @@ const BookDetails = ({ location }) => {
         publicationYear: data['publication_year'],
         isbn: data['isbn'],
         rating: data['average_rating'],
-        description: data['description']
+        description: data['description'],
+        title: data['title'],
+        author: data['authors']['author'][0]
+          ? data['authors']['author'][0].name
+          : data['authors']['author'].name
       });
     } catch (err) {
       console.log(err);
@@ -91,8 +95,6 @@ const BookDetails = ({ location }) => {
       await searchBook();
       setLoading(false);
       await checkUser();
-      console.log('After check user');
-      console.log(book);
       await checkSavedBook(book['id']);
     })();
   }, []);
