@@ -47,11 +47,11 @@ const BookDetails = ({ location }) => {
   };
 
   const saveBook = async bookId => {
+    console.log(`add ${bookId}`);
     try {
       const response = await axios.put(
         `http://localhost:3002/users/update/${bookId}`
       );
-      console.log(response);
       alert(response.data.message);
       setSaved(true);
     } catch (err) {
@@ -62,11 +62,11 @@ const BookDetails = ({ location }) => {
     }
   };
   const removeBook = async bookId => {
+    console.log(`remove ${bookId}`);
     try {
       const response = await axios.delete(
         `http://localhost:3002/users/remove/${bookId}`
       );
-      console.log(response);
       alert(response.data.message);
       setSaved(false);
     } catch (err) {

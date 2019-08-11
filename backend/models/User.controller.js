@@ -2,6 +2,7 @@ const User = require('./User');
 exports.addBook = function(req, res, next) {
   if (req.user) {
     const addBook = [...req.user.savedBooks, req.params.id];
+    console.log(addBook);
     User.updateOne({ _id: req.user._id }, { savedBooks: addBook }, function(
       err,
       user
@@ -26,8 +27,10 @@ exports.addBook = function(req, res, next) {
 
 exports.deleteBook = function(req, res, next) {
   if (req.user) {
-    const deleteBook = req.user.savedBooks.map(book => book !== req.params.id);
-    console.log(req.user);
+    const deleteBook = req.user.savedBooks.filter(
+      book => book !== req.params.id
+    );
+    console.log(deleteBook);
     User.updateOne({ _id: req.user._id }, { savedBooks: deleteBook }, function(
       err,
       user
