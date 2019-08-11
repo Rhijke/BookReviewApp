@@ -37,9 +37,11 @@ const SearchResults = ({ match }) => {
         <h3>Search results for: {match.params.search.replace('+', ' ')}</h3>
       </div>
       <div className="searchresults">
-        {searchResults.length > 0
-          ? searchResults.map(book => Book(book))
-          : null}
+        {searchResults.length > 0 ? (
+          searchResults.map(book => Book(book))
+        ) : (
+          <h3>Loading books</h3>
+        )}
       </div>
     </div>
   );
