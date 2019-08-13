@@ -37,8 +37,8 @@ function Nav(props) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/writereview">
-                Write a Review
+              <Link className="nav-link" to="/reviews">
+                Your Reviews
               </Link>
             </li>
           </ul>

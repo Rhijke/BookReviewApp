@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './css/BookDetails.css';
 const BookDetails = ({ location }) => {
@@ -138,19 +139,31 @@ const BookDetails = ({ location }) => {
                 Average Rating: {`${book['rating']}`}
               </h5>
             </div>
-            <button
-              className="btn btn-dark"
-              disabled={!loggedIn}
-              onClick={async () => {
-                if (!saved) {
-                  await saveBook(book['id']);
-                } else {
-                  await removeBook(book['id']);
-                }
-              }}
-            >
-              {saved ? 'Remove book' : 'Save Book'}
-            </button>
+            <div className="card-body">
+              <button
+                className="btn btn-dark detail-item"
+                disabled={!loggedIn}
+                onClick={async () => {
+                  if (!saved) {
+                    await saveBook(book['id']);
+                  } else {
+                    await removeBook(book['id']);
+                  }
+                }}
+              >
+                {saved ? 'Remove book' : 'Save Book'}
+              </button>
+              <Link
+                to={{
+                  pathname: `/writereview/${book.id}`,
+                  state: { book }
+                }}
+              >
+                <button className="btn btn-dark detail-item">
+                  Write Review
+                </button>
+              </Link>
+            </div>
           </div>
 
           <div>
