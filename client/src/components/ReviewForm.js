@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './css/WriteReview.css';
 // https://www.goodreads.com/review.xml
 export const ReviewForm = props => {
@@ -6,7 +7,7 @@ export const ReviewForm = props => {
   const [rating, setRating] = useState('0');
   const [bookId, setBookId] = useState();
   useEffect(() => {
-    console.log(props);
+    setBookId(props.match.params.bookId);
   }, []);
 
   const handleInputChange = event => {
@@ -29,6 +30,11 @@ export const ReviewForm = props => {
     console.log(bookId);
     console.log(review);
     console.log(rating);
+    axios.post(`http://localhost:3002/writereview/${bookId}`, {
+      bookId,
+      rating,
+      review
+    });
   };
 
   return (
@@ -46,7 +52,7 @@ export const ReviewForm = props => {
             <option value="1">&#xf005;</option>
             <option value="2">&#xf005; &#xf005;</option>
             <option value="3">&#xf005; &#xf005; &#xf005;</option>
-            <option vale="4">&#xf005; &#xf005; &#xf005; &#xf005;</option>
+            <option value="4">&#xf005; &#xf005; &#xf005; &#xf005;</option>
             <option value="5">
               &#xf005; &#xf005; &#xf005; &#xf005; &#xf005;
             </option>

@@ -38,4 +38,14 @@ router.get('/:bookId', async (req, res) => {
   }
 });
 
+router.post('/writereview/:bookId', async (req, res) => {
+  const bookId = req.params.bookId;
+  const rating = req.body['rating'];
+  const review = req.body['review'];
+  console.log(bookId);
+  console.log(rating);
+  console.log(review);
+  res.end();
+});
+
 module.exports = router;
