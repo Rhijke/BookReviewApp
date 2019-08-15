@@ -16,7 +16,7 @@ const BookDetails = ({ location }) => {
   const searchBook = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3002/${location.state.book['id']}`
+        `http://localhost:3002/search/${location.state.book['id']}`
       );
       console.log(response);
       const { data } = response;

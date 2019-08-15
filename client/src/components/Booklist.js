@@ -23,7 +23,9 @@ const BookList = ({ match }) => {
 
   const searchBook = async bookId => {
     try {
-      const response = await axios.get(`http://localhost:3002/${bookId}`);
+      const response = await axios.get(
+        `http://localhost:3002/search/${bookId}`
+      );
       console.log(response);
       const { data } = response;
       const book = {

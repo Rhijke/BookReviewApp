@@ -27,7 +27,7 @@ passport.use(
 const goodreadsAuth = passport.authenticate('goodreads');
 
 router.get('/goodreads', goodreadsAuth);
-router.get('/goodreads/callback', goodreadsAuth, (req, res) => {
+router.get('/goodreads/callback', (req, res) => {
   console.log('Callback called');
   const { error, error_description, error_uri } = req.query;
   if (error) {
@@ -68,8 +68,9 @@ router.get('/booklist', async (req, res) => {
   }
 });
 
-router.get('/:bookId', async (req, res) => {
+router.get('/search/:bookId', async (req, res) => {
   const bookId = req.params.bookId;
+  console.log(bookId);
   try {
     const response = await gr.showBook(bookId);
     res.json(response['book']);
