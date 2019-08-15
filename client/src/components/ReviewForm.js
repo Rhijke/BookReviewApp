@@ -30,11 +30,15 @@ export const ReviewForm = props => {
     console.log(bookId);
     console.log(review);
     console.log(rating);
-    axios.post(`http://localhost:3002/writereview/${bookId}`, {
-      bookId,
-      rating,
-      review
-    });
+    try {
+      axios.post(`http://localhost:3002/writereview/${bookId}`, {
+        bookId,
+        rating,
+        review
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

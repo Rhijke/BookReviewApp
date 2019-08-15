@@ -7,6 +7,8 @@ const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const flash = require('connect-flash');
+const grant = require('grant-express');
+const { key, secret } = require('./config/config.js');
 // Passport Config
 let initPassport = require('./config/passport');
 initPassport(passport);
@@ -39,12 +41,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Accept requests from the client
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:3002'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3002/',
+      'http://www.goodreads.com',
+      'https://goodreads.com/',
+      'www.goodreads.com',
+      /\.goodreads\.com$/
+    ],
+    credentials: true,
+    preflightContinue: true
   })
 );
-
 // Create Sessions
 app.use(
   session({
@@ -61,10 +69,26 @@ app.use(
 // Enable body parser
 app.use(express.urlencoded({ extended: false }));
 
-// Start Passport Middleware
+// Start Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-
+// Start Grant middleware
+app.use(
+  grant({
+    defaults: {
+      protocol: 'http',
+      host: 'localhost:3002',
+      transport: 'session'
+    },
+    goodreads: {
+      key: key,
+      secret: secret,
+      scope: [],
+      custom_params: { access_type: 'offline' },
+      callback: '/hello'
+    }
+  })
+);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
@@ -79,6 +103,7 @@ app.use((req, res, next) => {
   next();
 });
 // Routes
+app.options('/', cors());
 app.use('/users', require('./routes/user.router'));
 app.use('/', require('./routes/book.router'));
 app.get('*', function(req, res) {

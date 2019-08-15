@@ -1260,6 +1260,22 @@ graceful-fs@^4.1.6:
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
   integrity sha1-TK+tdrxi8C+gObL5Tpo906ORpyU=
 
+grant-express@^4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/grant-express/-/grant-express-4.6.2.tgz#6eebd8b359c43f12bb5774dd8436d3043ee9b955"
+  integrity sha512-g/MwZ8N7y+sbWQJtGth7VrZTDnAN+KF2NH6w/0cTzs9d0tX0RJIQSI/pD9USlVvEp/PjyFC0JYDm4HVI/bP7Gw==
+  dependencies:
+    grant "4.6.2"
+
+grant@4.6.2:
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/grant/-/grant-4.6.2.tgz#8d0ef5381d5a07f2e9e68250300e7074d0648af4"
+  integrity sha512-FON7qtoJSQ2OnINZyysezozqGthaPuVXjzmMpaXQcQXKSjuzouYK4I6FJhvU/QAZIhkWkgyRsk8ZhRu63Z2Rjw==
+  dependencies:
+    qs "^6.7.0"
+    request-compose "^1.2.0"
+    request-oauth "0.0.3"
+
 har-schema@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
@@ -2203,6 +2219,11 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
+oauth-sign@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
+  integrity sha1-Rqarfwrq2N6unsBWV4C31O/rnUM=
+
 oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
@@ -2532,7 +2553,7 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-qs@6.7.0:
+qs@6.7.0, qs@^6.5.1, qs@^6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
@@ -2653,6 +2674,20 @@ repeat-string@^1.5.2, repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
+
+request-compose@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/request-compose/-/request-compose-1.2.0.tgz#a87705fa5833639761aaf4fe6472171b00380e65"
+  integrity sha512-kvWsOZhYsoIJw6cLQHgcENHktD/dozkjvTFi30+OwAoaXcnTS0dGD1Pp2Auq3Kf54wVP7Sf4hUJCkzySKMe/vA==
+
+request-oauth@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/request-oauth/-/request-oauth-0.0.3.tgz#b3ea1ff857b9add3b0d49e42993a88e256d791ab"
+  integrity sha512-q7WdJlpIcPaIDac0FZSy/yH37FO3UkUuPDIsiLALiLjuC6vzvuKIU14YIC3Lm0wtQRXS9GqvSo/fCYj8n75xSw==
+  dependencies:
+    oauth-sign "^0.8.2"
+    qs "^6.5.1"
+    uuid "^3.2.1"
 
 request@^2.79.0:
   version "2.88.0"
@@ -3365,7 +3400,7 @@ utils-merge@1.0.1, utils-merge@1.x.x:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.3.2:
+uuid@^3.2.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
   integrity sha512-yXJmeNaw3DnnKAOKJE51sL/ZaYfWJRl1pK9dr19YFCu0ObS231AB1/LbqTKRAQ5kw8A90rA6fr4riOUpTZvQZA==

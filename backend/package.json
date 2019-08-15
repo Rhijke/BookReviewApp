@@ -20,6 +20,7 @@
     "express": "^4.17.1",
     "express-session": "^1.7.2",
     "goodreads-api-node": "^0.0.10",
+    "grant-express": "^4.6.2",
     "http-errors": "~1.6.3",
     "https": "^1.0.0",
     "jade": "~1.11.0",

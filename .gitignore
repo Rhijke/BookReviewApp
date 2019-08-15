@@ -1,4 +1,5 @@
 backend/node_modules
-backend/config
+backend/config/
+backend/config/env/
 client/node_modules
 client/src/components/api/config.js
