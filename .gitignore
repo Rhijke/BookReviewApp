@@ -3,3 +3,4 @@ backend/config/
 backend/config/env/
 client/node_modules
 client/src/components/api/config.js
+backend/config/env/env.json

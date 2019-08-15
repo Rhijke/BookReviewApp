@@ -113,12 +113,12 @@ const BookDetails = ({ location }) => {
   } else {
     return (
       <div
-        className="card m-3 mb-5"
+        className="card m-3  mb-5"
         style={{
           maxWidth: '60%'
         }}
       >
-        <h3 className="card-header">
+        <h3 className="card-header text-white bg-secondary ">
           {book['title']} by {book['author']}
         </h3>
         <div className="card-body">

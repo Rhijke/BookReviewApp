@@ -29,8 +29,17 @@ const goodreadsAuth = passport.authenticate('goodreads');
 router.get('/goodreads', goodreadsAuth);
 router.get('/goodreads/callback', goodreadsAuth, (req, res) => {
   console.log('Callback called');
-  console.log(Object.keys(req));
-  res.json({ oauth: req.query.oauth });
+  const { error, error_description, error_uri } = req.query;
+  if (error) {
+    res.status(500).json({
+      error,
+      error_description,
+      error_uri
+    });
+  } else {
+    res.cookie('access-token-goodreads', req.query.access_token);
+    res.end();
+  }
 });
 
 router.get('/search', async (req, res) => {
@@ -45,7 +54,9 @@ router.get('/search', async (req, res) => {
 });
 
 router.get('/booklist', async (req, res) => {
+  console.log('Book List user');
   console.log(req.user);
+
   if (req.user) {
     res.json({
       name: req.user.name,

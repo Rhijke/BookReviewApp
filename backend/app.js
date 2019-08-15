@@ -8,7 +8,7 @@ const cors = require('cors');
 const session = require('express-session');
 const flash = require('connect-flash');
 const grant = require('grant-express');
-const { key, secret } = require('./config/config.js');
+const goodreads = require('./config/config.js');
 // Passport Config
 let initPassport = require('./config/passport');
 initPassport(passport);
@@ -27,6 +27,7 @@ const server = require('http').Server(app);
 
 // Create database
 const db = require('./config/config').mongoURI;
+console.log(require('./config/config').mongoURI);
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`MongoDB connected.`))
@@ -81,11 +82,10 @@ app.use(
       transport: 'session'
     },
     goodreads: {
-      key: key,
-      secret: secret,
+      key: goodreads.key,
+      secret: goodreads.secret,
       scope: [],
-      custom_params: { access_type: 'offline' },
-      callback: '/hello'
+      callback: '/goodreads/callback'
     }
   })
 );
@@ -103,7 +103,6 @@ app.use((req, res, next) => {
   next();
 });
 // Routes
-app.options('/', cors());
 app.use('/users', require('./routes/user.router'));
 app.use('/', require('./routes/book.router'));
 app.get('*', function(req, res) {
