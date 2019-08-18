@@ -3,30 +3,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const goodreads = require('goodreads-api-node');
 const gr = goodreads(require('../config/config'));
+const grConfig = require('../config/config');
 const cors = require('cors');
-const goodreadsConfig = require('../config/config');
-const GoodreadsStrategy = require('passport-goodreads').Strategy;
-const passport = require('passport');
-gr.initOAuth('/goodreads/callback');
-passport.use(
-  new GoodreadsStrategy(
-    {
-      consumerKey: goodreadsConfig.key,
-      consumerSecret: goodreadsConfig.secret,
-      callbackURL: 'http://localhost:3002/goodreads/callback'
-    },
-    (accessToken, refreshToken, profile, done) => {
-      console.log('Access Token:');
-      console.log(accessToken);
-      console.log('Profile: ');
-      console.log(profile);
-      return done(null, profile);
-    }
-  )
-);
-const goodreadsAuth = passport.authenticate('goodreads');
-
-router.get('/goodreads', goodreadsAuth);
+const request = require('request');
+router.options('GET', cors());
 router.get('/goodreads/callback', (req, res) => {
   console.log('Callback called');
   const { error, error_description, error_uri } = req.query;
@@ -37,8 +17,20 @@ router.get('/goodreads/callback', (req, res) => {
       error_uri
     });
   } else {
-    res.cookie('access-token-goodreads', req.query.access_token);
+    console.log(req.query);
+    console.log(req.session);
+    console.log(Object.keys(req));
+
     res.end();
+  }
+});
+
+router.get('/loggedIn', (req, res) => {
+  console.log(req.session);
+  if (req.session.grant) {
+    res.json({ loggedIn: true });
+  } else {
+    res.json({ loggedIn: false });
   }
 });
 
@@ -83,9 +75,39 @@ router.post('/writereview/:bookId', (req, res) => {
   const bookId = req.params.bookId;
   const rating = req.body['rating'];
   const review = req.body['review'];
-  console.log(bookId);
-  console.log(rating);
-  console.log(review);
+  req.session.review = {
+    bookId,
+    rating,
+    review
+  };
+  console.log(req.session);
+
+  if (!req.session.grant) res.send({ goodreadsAuth: false });
+  else {
+    // Attempt to make the post request to goodreads
+    console.log(grConfig.key);
+    console.log(grConfig.secret);
+    console.log(req.session['grant']['request'].oauth_token);
+    console.log(req.session['grant']['request'].oauth_token_secret);
+    request.post(
+      {
+        url: 'https://www.goodreads.com/review.xml',
+        oauth: {
+          consumer_key: grConfig.key,
+          consumer_secret: grConfig.secret,
+          token: req.session['grant']['request'].oauth_token,
+          token_secret: req.session['grant']['request'].oauth_token_secret
+        }
+      },
+      function(e, r, body) {
+        console.log('Request POST callback');
+        console.log(e);
+        console.log(Object.keys(r));
+        console.log(`${r.statusCode} ${r.statusMessage}`);
+        console.log(r.body);
+      }
+    );
+  }
 
   res.end();
 });

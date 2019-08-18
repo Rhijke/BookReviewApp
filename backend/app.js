@@ -27,7 +27,6 @@ const server = require('http').Server(app);
 
 // Create database
 const db = require('./config/config').mongoURI;
-console.log(require('./config/config').mongoURI);
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log(`MongoDB connected.`))
