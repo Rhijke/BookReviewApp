@@ -76,7 +76,7 @@ export const ReviewForm = props => {
 
   const handleGoodreadsAuth = e => {
     let grAuth = window.open('http://localhost:3002/connect/goodreads');
-    console.log(Object.keys(e));
+    document.location.reload();
   };
   console.log(loggedIn);
   if (loggedIn) {
