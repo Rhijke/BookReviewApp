@@ -21,7 +21,7 @@ router.get('/goodreads/callback', (req, res) => {
     console.log(req.session);
     console.log(Object.keys(req));
 
-    res.end();
+    res.render('goodreadsAuth');
   }
 });
 
