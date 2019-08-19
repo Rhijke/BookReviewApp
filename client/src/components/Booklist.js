@@ -28,6 +28,7 @@ const BookList = ({ match }) => {
       );
       console.log(response);
       const { data } = response;
+      console.log(data);
       const book = {
         id: bookId,
         image: data['image_url'],
@@ -39,7 +40,8 @@ const BookList = ({ match }) => {
         author: data['authors']['author'][0]
           ? data['authors']['author'][0].name
           : data['authors']['author'].name,
-        smallImage: data['small_image_url']
+        smallImage: data['small_image_url'],
+        reviewId: data['work']['id']['_']
       };
       return book;
     } catch (err) {

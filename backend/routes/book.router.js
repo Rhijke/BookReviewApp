@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const goodreads = require('goodreads-api-node');
-const gr = goodreads(require('../config/config'));
 const grConfig = require('../config/config');
+const gr = goodreads(grConfig);
+const axios = require('axios');
 const cors = require('cors');
 const request = require('request');
 router.options('GET', cors());
@@ -17,16 +18,11 @@ router.get('/goodreads/callback', (req, res) => {
       error_uri
     });
   } else {
-    console.log(req.query);
-    console.log(req.session);
-    console.log(Object.keys(req));
-
     res.render('goodreadsAuth');
   }
 });
 
 router.get('/loggedIn', (req, res) => {
-  console.log(req.session);
   if (req.session.grant) {
     res.json({ loggedIn: true });
   } else {
@@ -40,15 +36,12 @@ router.get('/search', async (req, res) => {
     q: search,
     page: 1
   });
-  console.log(response);
+  console.log(response['search']);
   // Returns query, results-start, results-end, total results, query time
   return res.json(response['search']);
 });
 
 router.get('/booklist', async (req, res) => {
-  console.log('Book List user');
-  console.log(req.user);
-
   if (req.user) {
     res.json({
       name: req.user.name,
@@ -71,12 +64,12 @@ router.get('/search/:bookId', async (req, res) => {
   }
 });
 
-router.post('/writereview/:bookId', (req, res) => {
+router.post('/writereview/:bookId', async (req, res) => {
   const bookId = req.params.bookId;
   const rating = req.body['rating'];
   const review = req.body['review'];
   req.session.review = {
-    bookId,
+    book_id: bookId,
     rating,
     review
   };
@@ -85,10 +78,7 @@ router.post('/writereview/:bookId', (req, res) => {
   if (!req.session.grant) res.send({ goodreadsAuth: false });
   else {
     // Attempt to make the post request to goodreads
-    console.log(grConfig.key);
-    console.log(grConfig.secret);
-    console.log(req.session['grant']['request'].oauth_token);
-    console.log(req.session['grant']['request'].oauth_token_secret);
+
     request.post(
       {
         url: 'https://www.goodreads.com/review.xml',
@@ -97,14 +87,20 @@ router.post('/writereview/:bookId', (req, res) => {
           consumer_secret: grConfig.secret,
           token: req.session['grant']['request'].oauth_token,
           token_secret: req.session['grant']['request'].oauth_token_secret
+        },
+        form: {
+          book_id: req.session.review.book_id,
+          review: {
+            rating: req.session.review.rating,
+            review: req.session.review.review
+          }
         }
       },
       function(e, r, body) {
         console.log('Request POST callback');
         console.log(e);
-        console.log(Object.keys(r));
         console.log(`${r.statusCode} ${r.statusMessage}`);
-        console.log(r.body);
+        console.log(body);
       }
     );
   }

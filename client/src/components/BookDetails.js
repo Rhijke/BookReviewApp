@@ -20,6 +20,7 @@ const BookDetails = ({ location }) => {
       );
       console.log(response);
       const { data } = response;
+      console.log(data);
 
       setBook({
         ...book,
@@ -31,7 +32,8 @@ const BookDetails = ({ location }) => {
         title: data['title'],
         author: data['authors']['author'][0]
           ? data['authors']['author'][0].name
-          : data['authors']['author'].name
+          : data['authors']['author'].name,
+        reviewId: data['work']['id']['_']
       });
     } catch (err) {
       console.log(err);

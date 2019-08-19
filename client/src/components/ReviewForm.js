@@ -10,7 +10,8 @@ export const ReviewForm = props => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    setBookId(props.match.params.bookId);
+    setBookId(props.location.state.book.id);
+    console.log(props.location.state.book.id);
     (async () => {
       try {
         let result = await checkUserAuth();
@@ -78,7 +79,7 @@ export const ReviewForm = props => {
     let grAuth = window.open('http://localhost:3002/connect/goodreads');
     document.location.reload();
   };
-  console.log(loggedIn);
+
   if (loggedIn) {
     return (
       <div>
